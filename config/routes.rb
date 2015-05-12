@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  resources :imports, only: [:index, :new, :create, :destroy]
+  root "imports#index"
+
+#  get 'imports/index'
+
+#  get 'imports/new'
+
+#  get 'imports/create'
+
+#  get 'imports/destroy'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
