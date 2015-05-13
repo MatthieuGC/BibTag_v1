@@ -11,5 +11,4 @@
 #
 
 class Surrogate < ActiveRecord::Base
-  attr_accessor :name, :doi, :url
 end
