@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'users/new'
+
+  resources :users
   resources :imports, only: [:index, :new, :create, :destroy]
   root "imports#index"
 
