@@ -1,28 +1,38 @@
-== README
+BibTag v1.0
+===========
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+BibTag is a Ruby on Rails application made for facets classification of resources.
+You can import a BibTeX file who will be parsed and decomposed in surrogates. 
 
-Things you may want to cover:
+You will be able to find a resource through our tag system.
 
-* Ruby version
+Prerequisite
+----------
+You need to have Ruby, gem and rails installed on your computer.
 
-* System dependencies
+How to use BibTag
+----------
+Download and extract the project. Then open a console and move into the folder where the project is.
+To run Bibtag :
 
-* Configuration
+    $ rails server
 
-* Database creation
+Open a navigator and go at localhost:3000.
 
-* Database initialization
+Gem used
+----------
 
-* How to run the test suite
+'bibtex-ruby'
+'bootstrap'
+'rspec'
+'capybara'
+'webrat'
 
-* Services (job queues, cache servers, search engines, etc.)
+This software is distributed under the terms and conditions of the GNU GPL.
 
-* Deployment instructions
+Developers
+----------
 
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Ribaud Vincent
+Benabbou Amel
+Gourvénec Matthieu
