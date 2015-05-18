@@ -19,20 +19,29 @@ To run Bibtag :
 
 Open a navigator and go at localhost:3000.
 
+Here we go ! You can use BibTag !
+
 Gem used
 ----------
 
 'bibtex-ruby'
-'bootstrap'
-'rspec'
-'capybara'
-'webrat'
 
-This software is distributed under the terms and conditions of the GNU GPL.
+'bootstrap'
+
+'rspec'
+
+'capybara'
+
+'webrat'
 
 Developers
 ----------
 
 Ribaud Vincent
+
 Benabbou Amel
+
 Gourvénec Matthieu
+
+
+This software is distributed under the terms and conditions of the GNU GPL.
