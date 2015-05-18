@@ -11,12 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518074723) do
+ActiveRecord::Schema.define(version: 20150518140726) do
 
   create_table "imports", force: :cascade do |t|
     t.string   "attachment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "keywords", force: :cascade do |t|
+    t.string   "keywordName"
+    t.integer  "surrogate_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "surrogate_elements", force: :cascade do |t|
