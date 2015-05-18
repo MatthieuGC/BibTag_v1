@@ -1,0 +1,27 @@
+<% if !flash[:notice].blank? %>
+  <div class="alert alert-info">
+  <%= flash[:notice] %>
+  </div>
+<% end %>
+<br />
+<%= link_to "Import BibTeX file", new_import_path, class: "btn btn-primary" %>
+<br />
+<br />
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Resource</th>
+      <th>Doi</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @surrogates.each do |srg| %>
+      <tr>
+        <td><%= srg.name %></td>
+        <td><%= srg.doi %></td>
+        <td><%= link_to "View Resource", srg.url, class: "btn btn-success"%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

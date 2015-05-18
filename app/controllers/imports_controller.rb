@@ -1,7 +1,4 @@
 class ImportsController < ApplicationController
-  def index
-    @imports = Import.all
-  end
 
   def new
     @import = Import.new
@@ -12,7 +9,7 @@ class ImportsController < ApplicationController
     # Récupère le nom du fichier .bib sans l'extension.
     @fName = @import.attachment.to_s.split('/').last.split('.').first
     # Renvoie sur la page d'acceuil
-    redirect_to imports_path, notice: "The BibTeX file #{@fName}.bib has been imported. Thank you for your contribution"
+    redirect_to surrogates_path, notice: "The BibTeX file #{@fName}.bib has been imported. Thank you for your contribution"
     # Parse le fichier .bib et l'enregistre dans une variable.
     @bib = BibTeX.open("./public/#{@import.attachment.to_s}")
     # Tant que le fichier contient des entrées bibtex (surrogate)...
@@ -49,7 +46,7 @@ class ImportsController < ApplicationController
   def destroy
     @import = Import.find(params[:id])
     @import.destroy
-    redirect_to imports_path, notice: "The BibTeX file #{@fName}.bib has been removed."
+    redirect_to surrogates_path, notice: "The BibTeX file #{@fName}.bib has been removed."
   end
 
   private def import_params

@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   get 'users/new'
 
   resources :users
-  resources :imports, only: [:index, :new, :create, :destroy]
-  root "imports#index"
+  resources :imports, only: [:new, :create, :destroy]
+  resources :surrogates, only: [:index]
+  root "surrogates#index"
 
 #  get 'imports/index'
 
