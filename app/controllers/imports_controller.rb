@@ -11,30 +11,39 @@ class ImportsController < ApplicationController
     @import = Import.new(import_params)
     # Récupère le nom du fichier .bib sans l'extension.
     @fName = @import.attachment.to_s.split('/').last.split('.').first
-    # Si l'importation du fichier .bib est réussie
-    #if @import.save
-      # Renvoie sur la page d'acceuil
-      redirect_to imports_path, notice: "The BibTeX file #{@fName}.bib has been imported."
-      # Parse le fichier .bib et l'enregistre dans une variable.
-      @bib = BibTeX.open("./public/#{@import.attachment.to_s}")
-      # Tant que le fichier contient des entrées bibtex (surrogate)...
-      i = 0
-      while @bib[i] != nil do
-        # Convertie l'entrée bibtex en string
-        @entry = @bib[i].to_s
-        # ... enregistrer le surrogate dans la BDD avec nom du fichier .bib et contenu de l'entrée i.
-        @srg = Surrogate.new(:name => "#{@fName}-srg#{i}", :doi => @entry, :url => "coucou")
-        # commit dans la BDD
-        @srg.save
-        # Dans le cas ou l'on souhaiterai conserver les surrogates physiquement, on les enregistre dans des fichier .srg
-        File.open("./public/uploads/surrogates/#{@fName}-entry#{i}.srg", 'w+') { |f| f.write(@entry) }
-        i = i+1
+    # Renvoie sur la page d'acceuil
+    redirect_to imports_path, notice: "The BibTeX file #{@fName}.bib has been imported. Thank you for your contribution"
+    # Parse le fichier .bib et l'enregistre dans une variable.
+    @bib = BibTeX.open("./public/#{@import.attachment.to_s}")
+    # Tant que le fichier contient des entrées bibtex (surrogate)...
+    i = 0
+    while @bib[i] != nil do
+      # ... Convertie l'entrée bibtex en string
+      @entry = @bib[i].to_s
+      # ... Enregistre le surrogate dans la BDD.
+      @srg = Surrogate.new(:name => @bib[i].title, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+      j = 0
+      # ... Parcours chaque champs
+      while @bib[i].entries[j] != nil do
+        # Valeurs d'un champs
+        @sValue = @bib[i].entries[j].to_s.split('"')[1]
+        # Nom du champ
+        @sField = @bib[i].entries[j].to_s.split('"')[0].split(/\W+/)[1]
+        # Enregistre le surrogateElement dans la BDD si différent de doi ou url
+        if @sField === "doi" || @sField === "url"
+        else
+          @srgElmt = SurrogateElement.new(:name => @bib[i].title, :field => @sField, :arrayValues => @sValue)
+          # commit dans la BDD
+          @srgElmt.save
+        end
+        j = j+1
       end
-      # On supprime les fichiers/dossiers temporaires (bibtex)
-      # FileUtils.rm_r("./public/uploads/import/attachment/tmp/#{@import.attachment.to_s.split('/')[-2]}")
-    #else # Sinon recharge la page
-    #  render "new"
-    #end
+      # commit dans la BDD
+      @srg.save
+      # Dans le cas ou l'on souhaiterai conserver les surrogates physiquement, on les enregistre dans des fichier .srg
+      File.open("./public/uploads/surrogates/#{@fName}-entry#{i}.srg", 'w+') { |f| f.write(@entry) }
+      i = i+1
+    end
   end
 
   def destroy
@@ -49,5 +58,9 @@ class ImportsController < ApplicationController
 
   private def surrogate_params
     params.require(:surrogate).permit(:name, :doi, :url)
+  end
+
+  private def surrogateElement_params
+    params.require(:surrogateElement).permit(:name, :field,  :arrayValues)
   end
 end
