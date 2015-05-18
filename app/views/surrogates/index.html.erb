@@ -12,6 +12,7 @@
     <tr>
       <th>Resource</th>
       <th>Doi</th>
+      <th>Details</th>
       <th>Link</th>
     </tr>
   </thead>
@@ -20,7 +21,8 @@
       <tr>
         <td><%= srg.name %></td>
         <td><%= srg.doi %></td>
-        <td><%= link_to "View Resource", srg.url, class: "btn btn-success"%></td>
+        <td><%= link_to "Details", "#", class: "btn btn-info" %>
+        <td><%= link_to "View Resource", srg.url, class: "btn btn-success" %></td>
       </tr>
     <% end %>
   </tbody>

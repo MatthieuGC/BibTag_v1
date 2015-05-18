@@ -11,4 +11,5 @@
 #
 
 class Surrogate < ActiveRecord::Base
+  has_many :surrogate_elements, :dependent => :destroy
 end

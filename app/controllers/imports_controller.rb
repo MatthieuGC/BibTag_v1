@@ -19,6 +19,8 @@ class ImportsController < ApplicationController
       @entry = @bib[i].to_s
       # ... Enregistre le surrogate dans la BDD.
       @srg = Surrogate.new(:name => @bib[i].title, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+      # commit dans la BDD
+      @srg.save
       j = 0
       # ... Parcours chaque champs
       while @bib[i].entries[j] != nil do
@@ -29,14 +31,12 @@ class ImportsController < ApplicationController
         # Enregistre le surrogateElement dans la BDD si différent de doi ou url
         if @sField === "doi" || @sField === "url"
         else
-          @srgElmt = SurrogateElement.new(:name => @bib[i].title, :field => @sField, :arrayValues => @sValue)
+          @srgElmt = @srg.surrogate_elements.create(:name => @bib[i].title, :field => @sField, :arrayValues => @sValue)
           # commit dans la BDD
           @srgElmt.save
         end
         j = j+1
       end
-      # commit dans la BDD
-      @srg.save
       i = i+1
     end
     # Supprime les fichiers temporaires (.bib)

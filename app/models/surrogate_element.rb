@@ -11,4 +11,5 @@
 #
 
 class SurrogateElement < ActiveRecord::Base
+  belongs_to :surrogate
 end
