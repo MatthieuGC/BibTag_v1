@@ -40,10 +40,10 @@ class ImportsController < ApplicationController
       end
       # commit dans la BDD
       @srg.save
-      # Dans le cas ou l'on souhaiterai conserver les surrogates physiquement, on les enregistre dans des fichier .srg
-      File.open("./public/uploads/surrogates/#{@fName}-entry#{i}.srg", 'w+') { |f| f.write(@entry) }
       i = i+1
     end
+    # Supprime les fichiers temporaires (.bib)
+    FileUtils.rm_rf(Dir.glob('./public/uploads/tmp/*'))
   end
 
   def destroy
