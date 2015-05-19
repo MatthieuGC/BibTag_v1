@@ -13,5 +13,6 @@
 class Surrogate < ActiveRecord::Base
   has_many :surrogate_elements, :dependent => :destroy
   has_many :keywords, :dependent => :destroy
-  validates :name, :presence => true
+  validates :entry_type, :presence => true
+  validates :entry_key, :presence => true
 end

@@ -10,7 +10,8 @@
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th>Resource</th>
+      <th>Resource type</th>
+      <th>Resource key</th>
       <th>Doi</th>
       <th>Details</th>
       <th>Link</th>
@@ -19,7 +20,8 @@
   <tbody>
     <% @surrogates.each do |srg| %>
       <tr>
-        <td><%= srg.name %></td>
+        <td><%= srg.entry_type %></td>
+        <td><%= srg.entry_key %></td>
         <td><%= srg.doi %></td>
         <td><%= link_to "Details", "#", class: "btn btn-info" %>
         <td><%= link_to "View Resource", srg.url, class: "btn btn-success" %></td>

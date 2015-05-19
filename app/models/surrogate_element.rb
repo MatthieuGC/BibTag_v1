@@ -12,10 +12,9 @@
 #
 
 class SurrogateElement < ActiveRecord::Base
+  has_many :se_values
   belongs_to :surrogate
 
-  validates :name, :presence => true
-  validates :field, :presence => true
-  validates :arrayValues, :presence => true
+  validates :field_name, :presence => true
   validates :surrogate_id, :presence => true
 end

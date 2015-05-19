@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :imports, only: [:new, :create, :destroy]
   resources :surrogates, only: [:index]
   resources :surrogate_elements
+  resources :se_values
   root "surrogates#index"
 
 #  get 'imports/index'

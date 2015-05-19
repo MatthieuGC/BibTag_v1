@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518140726) do
+ActiveRecord::Schema.define(version: 20150519092030) do
 
   create_table "imports", force: :cascade do |t|
     t.string   "attachment"
@@ -26,10 +26,17 @@ ActiveRecord::Schema.define(version: 20150518140726) do
     t.datetime "updated_at",   null: false
   end
 
+  add_index "keywords", ["surrogate_id"], name: "index_keywords_on_surrogate_id"
+
+  create_table "se_values", force: :cascade do |t|
+    t.string   "value"
+    t.integer  "surrogate_element_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
   create_table "surrogate_elements", force: :cascade do |t|
-    t.string   "name"
-    t.string   "field"
-    t.string   "arrayValues"
+    t.string   "field_name"
     t.string   "surrogate_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
@@ -38,7 +45,8 @@ ActiveRecord::Schema.define(version: 20150518140726) do
   add_index "surrogate_elements", ["surrogate_id"], name: "index_surrogate_elements_on_surrogate_id"
 
   create_table "surrogates", force: :cascade do |t|
-    t.string   "name"
+    t.string   "entry_type"
+    t.string   "entry_key"
     t.string   "doi"
     t.string   "url"
     t.datetime "created_at", null: false
