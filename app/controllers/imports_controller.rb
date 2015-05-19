@@ -25,21 +25,30 @@ class ImportsController < ApplicationController
       j = 0
       # ... Parcours chaque champs
       while @bib[i].entries[j] != nil do
-        # Valeurs d'un champs
-        @sValue = @bib[i].entries[j].to_s.split('"')[1].split(', ')
-	# Valeurs du champ keywords
-	@sKeywords = @bib[i]['keywords'].to_s.split(', ')
         # Nom du champ
         @sField = @bib[i].entries[j].to_s.split('"')[0].split(/\W+/)[1]
+	k = 0
+        # Valeurs d'un champs
+	if @sField === "keywords"
+	  @sValue = @bib[i].entries[j].to_s.split('"')[1].split(/;|,/)
+	elsif @sField === "author" || @sField === "editor"
+	  @sValue = @bib[i].entries[j].to_s.split('"').delete_if{|e| e === ", "}.delete_if{|e| e === ">]"}
+          k = 1
+	elsif @sField === "month"
+	  @sValue = @bib[8].entries[4].to_s.split(/:|>/)[4].split("",1)[0]
+	else
+          @sValue = @bib[i].entries[j].to_s.split('"')[1].split(',')
+	end
+	# Valeurs du champ keywords
+	@sKeywords = @bib[i]['keywords'].to_s.split(/;|,/)
         # Enregistre le surrogateElement dans la BDD si différent de doi ou url
         if @sField === "doi" || @sField === "url"
         else
           @srgElmt = @srg.surrogate_elements.create(:field_name => @sField)
           # commit dans la BDD
           @srgElmt.save
-	  k = 0
 	  while @sValue[k] != nil do
-            @seValue = @srgElmt.se_values.create(:value => @sValue[k])
+            @seValue = @srgElmt.se_values.create(:value => @sValue[k].strip)
 	    # commit dans la BDD
 	    @seValue.save
             k = k+1
@@ -49,7 +58,7 @@ class ImportsController < ApplicationController
         j = j+1
       end
       while @sKeywords[k] != nil do
-        @keyword = @srg.keywords.create(:keywordName => @sKeywords[k])
+        @keyword = @srg.keywords.create(:keywordName => @sKeywords[k].strip)
         # commit dans la BDD
         @keyword.save
         k = k+1
