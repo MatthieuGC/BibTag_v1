@@ -35,7 +35,7 @@ class ImportsController < ApplicationController
 	  @sValue = @bib[i].entries[j].to_s.split('"').delete_if{|e| e === ", "}.delete_if{|e| e === ">]"}
           k = 1
 	elsif @sField === "month"
-	  @sValue = @bib[8].entries[4].to_s.split(/:|>/)[4].split("",1)[0]
+	  @sValue = @bib[i].entries[j].to_s.split(/:|>/)[4].split("",1)
 	else
           @sValue = @bib[i].entries[j].to_s.split('"')[1].split(',')
 	end
