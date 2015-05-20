@@ -10,9 +10,9 @@
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th>Resource type</th>
-      <th>Resource key</th>
-      <th>Doi</th>
+      <th>Type</th>
+      <th>Title</th>
+      <th>Author(s)</th>
       <th>Details</th>
       <th>Link</th>
     </tr>
@@ -21,10 +21,29 @@
     <% @surrogates.each do |srg| %>
       <tr>
         <td><%= srg.entry_type %></td>
-        <td><%= srg.entry_key %></td>
-        <td><%= srg.doi %></td>
+        <td><%= srg.surrogate_elements.where(field_name: "title").first.se_values.first.value %></td>
+        <td><%= if srg.surrogate_elements.where(field_name: "author").first != nil
+		  x = srg.surrogate_elements.where(field_name: "author").first.se_values.each do |a|
+		    a.value
+		  end
+		  i = 0
+		  @authors = ""
+		  while x[i] != nil do
+		    if x[i+1] != nil
+		      @authors = @authors+"#{x[i].value} and "
+		    else
+		      @authors = @authors+"#{x[i].value}"
+		    end
+		  i = i+1
+		  end
+		  puts = @authors
+		end
+	%></td>
         <td><%= link_to "Details", "#", class: "btn btn-info" %>
-        <td><%= link_to "View Resource", srg.url, class: "btn btn-success" %></td>
+        <td><%= if srg.url != nil 
+		  link_to "View Resource", srg.url, class: "btn btn-success"
+		end
+	%></td>
       </tr>
     <% end %>
   </tbody>
