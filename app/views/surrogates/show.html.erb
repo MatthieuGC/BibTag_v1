@@ -1,0 +1,45 @@
+<% if !flash[:notice].blank? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<br />
+
+<div class="row">
+  <p class="col-sm-9"><%= link_to "Back", surrogates_path, class: "btn btn-primary" %></p>
+  <p class="col-sm-1" align="right">
+    <%= if @surrogate.url != nil
+          link_to "View Resource", @surrogate.url, class: "btn btn-success"
+	end
+    %>
+  </p>
+  <p class="col-sm-2" align="right"><%= link_to "Export as .bib", "#", class: "btn btn-info" %></p>
+</div>
+
+<h2 align="center" style="margin-top: 10px; margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px; border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc">
+  <%= @surrogate.surrogate_elements.where(field_name: "title").first.se_values.first.value %>
+</h2>
+<br />
+
+<table class="table-striped">
+  <tbody>  
+    <tr><td>
+      <%= puts = "Year : #{@surrogate.surrogate_elements.where(field_name: "year").first.se_values.first.value}" %></td></tr>
+    <tr><td><%= x = @surrogate.surrogate_elements.where(field_name: "author").first.se_values.each do |a|
+		    a.value
+		  end
+		  i = 0
+		  @authors = ""
+		  while x[i] != nil do
+		    if x[i+1] != nil
+		      @authors = @authors+"#{x[i].value} and "
+		    else
+		      @authors = @authors+"#{x[i].value}"
+		    end
+		    i = i+1
+		  end 
+		  puts = "Author(s) : #{@authors}" %>
+    </td></tr>
+  </tbody>
+</table>
+<br />

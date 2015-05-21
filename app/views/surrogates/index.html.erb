@@ -39,7 +39,7 @@
 		  puts = @authors
 		end
 	%></td>
-        <td><%= link_to "Details", "#", class: "btn btn-info" %>
+        <td><%= link_to 'Details', srg, class: "btn btn-info" %>
         <td><%= if srg.url != nil 
 		  link_to "View Resource", srg.url, class: "btn btn-success"
 		end

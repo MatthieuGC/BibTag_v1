@@ -3,9 +3,7 @@
 # Table name: surrogate_elements
 #
 #  id           :integer          not null, primary key
-#  name         :string
-#  field        :string
-#  arrayValues  :string
+#  field_name   :string
 #  surrogate_id :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null

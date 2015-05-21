@@ -1,18 +1,16 @@
 # == Schema Information
 #
-# Table name: surrogates
+# Table name: tags
 #
 #  id         :integer          not null, primary key
-#  entry_type :string
-#  entry_key  :string
-#  doi        :string
-#  url        :string
+#  tag_name   :string
+#  tagset_id  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 require 'rails_helper'
 
-RSpec.describe Surrogate, type: :model do
+RSpec.describe Tag, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

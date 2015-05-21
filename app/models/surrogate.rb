@@ -3,7 +3,8 @@
 # Table name: surrogates
 #
 #  id         :integer          not null, primary key
-#  name       :string
+#  entry_type :string
+#  entry_key  :string
 #  doi        :string
 #  url        :string
 #  created_at :datetime         not null

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :imports, only: [:new, :create, :destroy]
-  resources :surrogates, only: [:index]
+  resources :surrogates
   resources :surrogate_elements
   resources :se_values
   root "surrogates#index"
