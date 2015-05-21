@@ -59,8 +59,10 @@ class ImportsController < ApplicationController
       end
       while @sKeywords[k] != nil do
         @keyword = @srg.keywords.create(:keywordName => @sKeywords[k].strip)
+        @tag = Tag.create(:tag_name => @sKeywords[k].strip)
         # commit dans la BDD
         @keyword.save
+        @tag.save
         k = k+1
       end
       i = i+1
