@@ -4,7 +4,7 @@
 #
 #  id           :integer          not null, primary key
 #  field_name   :string
-#  surrogate_id :string
+#  surrogate_id :integer
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #

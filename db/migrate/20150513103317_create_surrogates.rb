@@ -5,8 +5,10 @@ class CreateSurrogates < ActiveRecord::Migration
       t.string :entry_key
       t.string :doi
       t.string :url
+      t.integer :resource_collection_id
 
       t.timestamps null: false
     end
+    add_index :surrogates, :resource_collection_id
   end
 end

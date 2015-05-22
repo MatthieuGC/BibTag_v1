@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get 'users/new'
 
+  resource :resource_collections
+  resource :tags
   resources :users
   resources :imports, only: [:new, :create, :destroy]
   resources :surrogates

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150521073726) do
+ActiveRecord::Schema.define(version: 20150522100955) do
 
   create_table "imports", force: :cascade do |t|
     t.string   "attachment"
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(version: 20150521073726) do
 
   add_index "keywords", ["surrogate_id"], name: "index_keywords_on_surrogate_id"
 
+  create_table "resource_collections", force: :cascade do |t|
+    t.string   "collection_name"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "se_values", force: :cascade do |t|
     t.string   "value"
     t.integer  "surrogate_element_id"
@@ -37,7 +43,7 @@ ActiveRecord::Schema.define(version: 20150521073726) do
 
   create_table "surrogate_elements", force: :cascade do |t|
     t.string   "field_name"
-    t.string   "surrogate_id"
+    t.integer  "surrogate_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
@@ -49,8 +55,16 @@ ActiveRecord::Schema.define(version: 20150521073726) do
     t.string   "entry_key"
     t.string   "doi"
     t.string   "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "resource_collection_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "surrogates", ["resource_collection_id"], name: "index_surrogates_on_resource_collection_id"
+
+  create_table "surrogates_tags", id: false, force: :cascade do |t|
+    t.integer "surrogate_id"
+    t.integer "tag_id"
   end
 
   create_table "tags", force: :cascade do |t|

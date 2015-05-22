@@ -5,6 +5,7 @@ class ImportsController < ApplicationController
   end
 
   def create
+    ResourceCollection.create(:collection_name => "Default")
     @import = Import.new(import_params)
     # Récupère le nom du fichier .bib sans l'extension.
     @fName = @import.attachment.to_s.split('/').last.split('.').first
@@ -19,9 +20,7 @@ class ImportsController < ApplicationController
       # ... Convertie l'entrée bibtex en string
       @entry = @bib[i].to_s
       # ... Enregistre le surrogate dans la BDD.
-      @srg = Surrogate.new(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
-      # commit dans la BDD
-      @srg.save
+      @srg = ResourceCollection.first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
       j = 0
       # ... Parcours chaque champs
       while @bib[i].entries[j] != nil do
@@ -45,12 +44,8 @@ class ImportsController < ApplicationController
         if @sField === "doi" || @sField === "url"
         else
           @srgElmt = @srg.surrogate_elements.create(:field_name => @sField)
-          # commit dans la BDD
-          @srgElmt.save
 	  while @sValue[k] != nil do
             @seValue = @srgElmt.se_values.create(:value => @sValue[k].strip)
-	    # commit dans la BDD
-	    @seValue.save
             k = k+1
 	  end
 	  k = 0
@@ -60,9 +55,6 @@ class ImportsController < ApplicationController
       while @sKeywords[k] != nil do
         @keyword = @srg.keywords.create(:keywordName => @sKeywords[k].strip)
         @tag = Tag.create(:tag_name => @sKeywords[k].strip)
-        # commit dans la BDD
-        @keyword.save
-        @tag.save
         k = k+1
       end
       i = i+1
