@@ -54,9 +54,10 @@ class ImportsController < ApplicationController
       end
       while @sKeywords[k] != nil do
         @keyword = @srg.keywords.create(:keywordName => @sKeywords[k].strip)
-        @tag = Tag.create(:tag_name => @sKeywords[k].strip)
+        @tag = @srg.tag_list.add(@sKeywords[k].strip)
         k = k+1
       end
+      @srg.save
       i = i+1
     end
     

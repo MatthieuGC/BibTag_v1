@@ -3,8 +3,7 @@
   <%= flash[:notice] %>
   </div>
 <% end %>
-<%= link_to "Import BibTeX file", new_import_path, class: "btn btn-primary", style: "margin-top: 8px" %>
-<br />
+<%= button_to "Import BibTeX file", new_import_path, class: "btn btn-primary", style: "margin-top: 8px", method: "get" %>
 <br />
 <table class="table table-bordered table-striped">
   <thead>
@@ -38,9 +37,9 @@
 		  puts = @authors
 		end
 	%></td>
-        <td><%= link_to 'Details', srg, class: "btn btn-info" %>
-        <td><%= if srg.url != nil 
-		  link_to "View Resource", srg.url, class: "btn btn-success"
+        <td align="center"><%= button_to 'Details', srg, class: "btn btn-info", method: "get" %>
+        <td align="center"><%= if srg.url != nil 
+		  button_to "View Resource", srg.url, class: "btn btn-success", method: "get"
 		end
 	%></td>
       </tr>

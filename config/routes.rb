@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
-  get 'users/new'
-
-  resource :resource_collections
-  resource :tags
-  resources :users
-  resources :imports, only: [:new, :create, :destroy]
-  resources :surrogates
-  resources :surrogate_elements
+  resources :surrogates_tags
+  resources :imports
+  resources :resource_collections
+  resources :keywords
   resources :se_values
+  resources :tags
+  resources :surrogate_elements
+  resources :surrogates
+  get 'users/new'
   root "surrogates#index"
-
+  match 'tagged' => 'surrogates#tagged', :as => 'tagged', via: [:get]
 #  get 'imports/index'
 
 #  get 'imports/new'

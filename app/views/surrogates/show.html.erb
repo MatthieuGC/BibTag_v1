@@ -6,14 +6,14 @@
 <br />
 
 <div class="row">
-  <p class="col-sm-9"><%= link_to "Back", surrogates_path, class: "btn btn-primary" %></p>
+  <p class="col-sm-9"><%= link_to "Back", surrogates_path, class: "btn btn-primary", style: "color: #fff" %></p>
   <p class="col-sm-1" align="right">
     <%= if @surrogate.url != nil
-          link_to "View Resource", @surrogate.url, class: "btn btn-success"
+          link_to "View Resource", @surrogate.url, class: "btn btn-success", style: "color: #fff"
 	end
     %>
   </p>
-  <p class="col-sm-2" align="right"><%= link_to "Export as .bib", "#", class: "btn btn-info" %></p>
+  <p class="col-sm-2" align="right"><%= link_to "Export as .bib", "#", class: "btn btn-info", style: "color: #fff" %></p>
 </div>
 
 <h2 align="center" style="margin-top: 10px; margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px; border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc">
@@ -45,10 +45,12 @@
 <br />
 <p>
   <b>tags : </b>
-    <%= @tags = ""
-    @surrogate.tag.each do |t|
-      @tags = @tags+"<kbd>#{t.tag_name}</kbd> "
-    end
-    puts = @tags.html_safe %>
-<p class="col-sm-12" align="right"><%= link_to "Add Tags", "#", class: "btn btn-success" %></p>
+  <% @surrogate.tags.any? %>
+  <% @surrogate.tags.each do |t| %>
+  <%= link_to t.name, tagged_url(:tag => t.name) %>
+  <% end %>
+</p>
+<br />
+<h6>Add some tags (separated by commas) :</h6>
+<%= render 'form' %>
 <br />

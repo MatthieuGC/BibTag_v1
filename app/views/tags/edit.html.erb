@@ -1,0 +1,19 @@
+<%= form_for(@t) do |f| %>
+<% if @t.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@t.errors.count, "error") %> prohibited this user from being saved    :</h2>
+  <ul><% @t.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+<% end %>
+  </ul>
+</div>
+<% end %>
+<div class="field"><br>
+  <%= f.text_field :tag_name %>
+</div>
+<div class="actions">
+  <%= f.submit %>
+</div>
+  <% end %>
+<%= link_to 'Show', @t %> |
+<%= link_to 'Back', tag_path %>

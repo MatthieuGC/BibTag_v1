@@ -13,7 +13,7 @@
 #
 
 class Surrogate < ActiveRecord::Base
-  has_and_belongs_to_many :tag
+  acts_as_taggable_on :tags
   belongs_to :resource_collections
   has_many :surrogate_elements, :dependent => :destroy
   has_many :keywords, :dependent => :destroy

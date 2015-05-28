@@ -46,7 +46,9 @@ group :development, :test do
     gem 'rspec-rails'
     gem 'carrierwave'
     gem 'bootstrap-sass'
+    gem 'bootstrap-generators'
     gem 'annotate'
+    gem 'acts-as-taggable-on'
   end
 
   group :test do

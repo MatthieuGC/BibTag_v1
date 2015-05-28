@@ -1,0 +1,12 @@
+<% if !flash[:notice].blank? %>
+  <div class="alert alert-info">
+  <%= flash[:notice] %>
+  </div>
+<% end %>
+<table class="table">
+  <tbody>
+    <% @tag.each do |t| %>
+      <tr><td> <%= t.name %> </td>
+    <% end %>
+  </tbody>
+</table>
