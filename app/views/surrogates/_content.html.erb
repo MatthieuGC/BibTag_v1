@@ -1,0 +1,115 @@
+<% @s = @surrogate.surrogate_elements %>
+<table class="table-hover table-responsive">
+<% if @s.exists?(field_name: "year") %>
+    <tr><td>
+<%= 
+  puts = "Year : #{@s.where(field_name: "year").first.se_values.first.value}" 
+%>
+    </td></tr>
+<% end %>
+<% if @s.exists?(field_name: "author") %>
+    <tr><td>
+<%=
+  x = @s.where(field_name: "author").first.se_values.each do |a|
+    a.value
+  end
+  i = 0
+  @authors = ""
+  while x[i] != nil do
+    if x[i+1] != nil
+      @authors = @authors+"#{x[i].value} and "
+    else
+      @authors = @authors+"#{x[i].value}"
+    end
+    i = i+1
+  end 
+  puts = "Author(s) : #{@authors}" 
+%>
+    </td></tr>
+<% end %>
+<% if @s.exists?(field_name: "publisher") %>
+    <tr><td>
+<%= 
+  puts = "Publisher : #{@s.where(field_name: "publisher").first.se_values.first.value}"
+%>
+    </td><tr>
+<% end %>
+<% if @s.exists?(field_name: "chapter") %>
+    <tr><td>
+<%= 
+  puts = "Chapter : #{@s.where(field_name: "chapter").first.se_values.first.value}"
+%>
+    </td><tr>
+<% end %>
+<% if @s.exists?(field_name: "edition") %>
+    <tr><td>
+<%= 
+  puts = "Edition : #{@s.where(field_name: "edition").first.se_values.first.value}"
+%>
+    </td><tr>
+<% end %>
+<% if @s.exists?(field_name: "Editor") %>
+    <tr><td>
+<%= 
+  puts = "Editor : #{@s.where(field_name: "editor").first.se_values.first.value}"
+%>
+    </td><tr>
+<% end %>
+<% if @s.exists?(field_name: "journal") %>
+    <tr><td>
+<%= 
+  puts = "Journal : #{@s.where(field_name: "journal").first.se_values.first.value}"
+%>
+    </td><tr>
+<% end %>
+<% if @s.exists?(field_name: "month") %>
+    <tr><td>
+<%= 
+  puts = "Month : #{@s.where(field_name: "month").first.se_values.first.value}"
+%>
+    </td><tr>
+<% end %>
+<% if @s.exists?(field_name: "number") %>
+    <tr><td>
+<%= 
+  puts = "number : #{@s.where(field_name: "number").first.se_values.first.value}"
+%>
+    </td><tr>
+<% end %>
+<% if @s.exists?(field_name: "pages") %>
+    <tr><td>
+<%= 
+  puts = "Pages : #{@s.where(field_name: "pages").first.se_values.first.value}"
+%>
+    </td><tr>
+<% end %>
+<% if @s.exists?(field_name: "school") %>
+    <tr><td>
+<%= 
+  puts = "School : #{@s.where(field_name: "school").first.se_values.first.value}"
+%>
+    </td><tr>
+<% end %>
+<% if @s.exists?(field_name: "series") %>
+    <tr><td>
+<%= 
+  puts = "Series : #{@s.where(field_name: "series").first.se_values.first.value}"
+%>
+    </td><tr>
+<% end %>
+<% if @s.exists?(field_name: "type") %>
+    <tr><td>
+<%= 
+  puts = "Type : #{@s.where(field_name: "type").first.se_values.first.value}"
+%>
+    </td><tr>
+<% end %>
+<% if @s.exists?(field_name: "volume") %>
+    <tr><td>
+<%= 
+  puts = "Volume : #{@s.where(field_name: "volume").first.se_values.first.value}"
+%>
+    </td><tr>
+<% end %>
+</table>
+

@@ -1,8 +1,4 @@
-<% if !flash[:notice].blank? %>
-  <div class="alert alert-info">
-  <%= flash[:notice] %>
-  </div>
-<% end %>
+<%= render 'layouts/home_navbar' %>
 <%= button_to "Import BibTeX file", new_import_path, class: "btn btn-primary", style: "margin-top: 8px", method: "get" %>
 <br />
 <table class="table table-bordered table-striped">

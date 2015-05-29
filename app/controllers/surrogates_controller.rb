@@ -9,12 +9,21 @@ class SurrogatesController < ApplicationController
 
   def tagged
     if params[:tag].present?
-      @surrogate = Surrogate.tagged_with(params[:tag])
+      @surrogates = Surrogate.tagged_with(params[:tag])
+      @tag = params[:tag]
     else
-      @surrogate = Surrogate.all
+      @tag = Surrogate.all
     end
   end
   
+  def about
+    @titre = "About"
+  end
+
+  def contact
+    @titre = "Contact"
+  end
+
   def update
     @surrogate = Surrogate.find(params[:id])
     @surrogate.tag_list.add(params[:surrogate][:tag_list], parse: true)

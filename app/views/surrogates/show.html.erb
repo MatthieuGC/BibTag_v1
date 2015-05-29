@@ -3,6 +3,7 @@
     <%= flash[:notice] %>
   </div>
 <% end %>
+<%= render 'layouts/default_navbar' %>
 <br />
 
 <div class="row">
@@ -21,27 +22,8 @@
 </h2>
 <br />
 
-<table class="table-striped">
-  <tbody>  
-    <tr><td>
-      <%= puts = "Year : #{@surrogate.surrogate_elements.where(field_name: "year").first.se_values.first.value}" %></td></tr>
-    <tr><td><%= x = @surrogate.surrogate_elements.where(field_name: "author").first.se_values.each do |a|
-		    a.value
-		  end
-		  i = 0
-		  @authors = ""
-		  while x[i] != nil do
-		    if x[i+1] != nil
-		      @authors = @authors+"#{x[i].value} and "
-		    else
-		      @authors = @authors+"#{x[i].value}"
-		    end
-		    i = i+1
-		  end 
-		  puts = "Author(s) : #{@authors}" %>
-    </td></tr>
-  </tbody>
-</table>
+<%= render 'content' %>
+
 <br />
 <p>
   <b>tags : </b>

@@ -1,1 +1,46 @@
-<h1>Test</h1>
+<%= render 'layouts/default_navbar' %>
+<h1><%= puts = "Tagged with : #{@tag}" %></h1>
+<div>
+<p><%= link_to "Back", :back, class: "btn btn-primary", style: "color: #fff" %></p>
+</div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Title</th>
+      <th>Author(s)</th>
+      <th>Details</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @surrogates.each do |srg| %>
+      <tr>
+        <td><%= srg.entry_type %></td>
+        <td><%= srg.surrogate_elements.where(field_name: "title").first.se_values.first.value %></td>
+        <td><%= if srg.surrogate_elements.where(field_name: "author").first != nil
+		  x = srg.surrogate_elements.where(field_name: "author").first.se_values.each do |a|
+		    a.value
+		  end
+		  i = 0
+		  @authors = ""
+		  while x[i] != nil do
+		    if x[i+1] != nil
+		      @authors = @authors+"#{x[i].value} and "
+		    else
+		      @authors = @authors+"#{x[i].value}"
+		    end
+		  i = i+1
+		  end
+		  puts = @authors
+		end
+	%></td>
+        <td align="center"><%= button_to 'Details', srg, class: "btn btn-info", method: "get" %>
+        <td align="center"><%= if srg.url != nil 
+		  button_to "View Resource", srg.url, class: "btn btn-success", method: "get"
+		end
+	%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

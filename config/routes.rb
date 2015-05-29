@@ -9,8 +9,9 @@ Rails.application.routes.draw do
   resources :surrogates
   get 'users/new'
   root "surrogates#index"
-  match 'tagged' => 'surrogates#tagged', :as => 'tagged', via: [:get]
-#  get 'imports/index'
+  match '/tagged', :to => 'surrogates#tagged', :as => 'tagged', via: [:get]
+  match '/about', :to => 'surrogates#about', :via => [:get]
+  match '/contact', :to => 'surrogates#contact', :via => [:get]
 
 #  get 'imports/new'
 
