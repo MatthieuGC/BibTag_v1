@@ -29,7 +29,7 @@
   <b>tags : </b>
   <% @surrogate.tags.any? %>
   <% @surrogate.tags.each do |t| %>
-  <%= link_to t.name, tagged_url(:tag => t.name) %>
+ <kbd><%= link_to t.name, tagged_url(:tag => t.name), style: "color: #ccc" %></kbd>
   <% end %>
 </p>
 <br />

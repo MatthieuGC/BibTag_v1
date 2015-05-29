@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   resources :tags
   resources :surrogate_elements
   resources :surrogates
-  get 'users/new'
+  resources :users
+
   root "surrogates#index"
   match '/tagged', :to => 'surrogates#tagged', :as => 'tagged', via: [:get]
   match '/about', :to => 'surrogates#about', :via => [:get]

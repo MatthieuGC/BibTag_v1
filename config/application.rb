@@ -25,5 +25,7 @@ module BibTag001
     
     # Force the tag lowercase
     ActsAsTaggableOn.force_lowercase = true
+
+    config.filter_parameters += [:password]
   end
 end
