@@ -19,4 +19,8 @@ class Surrogate < ActiveRecord::Base
   has_many :keywords, :dependent => :destroy
   validates :entry_type, :presence => true
   validates :entry_key, :presence => true
+
+  def self.search(query)
+    where("entry_key like ?", "%#{query}%")
+  end
 end

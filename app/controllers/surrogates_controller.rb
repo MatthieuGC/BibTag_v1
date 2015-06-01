@@ -1,6 +1,11 @@
 class SurrogatesController < ApplicationController
   def index
     @surrogates = Surrogate.all
+    if params[:search]
+      @surrogates = Surrogate.search(params[:search])
+    else
+      @surrogates = Surrogate.all
+    end
   end
 
   def show
