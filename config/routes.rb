@@ -10,8 +10,9 @@ Rails.application.routes.draw do
   resources :surrogates
   resources :users
 
-  root "surrogates#index"
-
+  root "pages#index"
+ 
+  match '/index', :to => 'surrogates#index', :via => [:get]
   match '/import', :to => 'imports#new', :via => [:get]
   match '/tagged', :to => 'surrogates#tagged', :as => 'tagged', :via => [:get]
   match '/about', :to => 'surrogates#about', :via => [:get]

@@ -77,6 +77,11 @@ GEM
     coffee-script-source (1.9.1.1)
     columnize (0.9.0)
     debug_inspector (0.0.2)
+    delayed_job (4.0.6)
+      activesupport (>= 3.0, < 5.0)
+    delayed_job_active_record (4.0.3)
+      activerecord (>= 3.0, < 5.0)
+      delayed_job (>= 3.0, < 4.1)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.5.2)
@@ -103,6 +108,8 @@ GEM
     multi_json (1.11.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    progress_job (0.0.4)
+      delayed_job
     rack (1.6.1)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -207,8 +214,10 @@ DEPENDENCIES
   capybara
   carrierwave
   coffee-rails (~> 4.1.0)
+  delayed_job_active_record
   jbuilder (~> 2.0)
   jquery-rails
+  progress_job
   rails (= 4.2.1)
   rspec
   rspec-rails

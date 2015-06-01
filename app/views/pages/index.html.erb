@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>BibTag v1.0</title>
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <%= javascript_include_tag "https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js", "https://oss.maxcdn.com/respond/1.4.2/respond.min.js" %>
+  <![endif]-->
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body background="images/bibtagbg.png">
+  <div class="container" style="margin-top: 200px; margin-bottom: 200px;">
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, class: "alert alert-#{ name == :error ? "danger" : "success" } alert-dismissable", role: "alert" do %>
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <%= msg %>
+      <% end %>
+    <% end %>
+<%= render 'layouts/home_navbar' %>
+  <div align="center"><%= button_to "Contribute", '/import', class: "btn btn-info btn-lg", style: "margin-top: 8px", method: "get" %></div>
+ <h1 align="center" style="color: #fff">OR</h1> 
+  <div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6" style="margin-top: 8px"><%= form_tag surrogates_path, :method => 'get' do %>
+    <div class="input-group add-on">
+      <%= text_field_tag :search, params[:search], :class => "form-control input-lg" %>
+      <div class="input-group-btn">
+      <%= submit_tag "Search", :name => nil, :class => "btn btn-success btn-lg" %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+<br />
+  </div>
+</body>
+<div class="container">
+<footer style="color: #ccc; margin-top: 10px; border-top: 1px solid #ccc">
+  <h6>ENSTA Brest - Pole STIC - 2015<br> Application créée par Ribaud Vincent & Gourvénec Matthieu</h6>
+</footer>
+</div>
+</html>

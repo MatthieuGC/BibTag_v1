@@ -49,6 +49,8 @@ group :development, :test do
     gem 'bootstrap-generators'
     gem 'annotate'
     gem 'acts-as-taggable-on'
+    gem 'delayed_job_active_record'
+    gem 'progress_job'
   end
 
   group :test do
