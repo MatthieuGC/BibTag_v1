@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :sessions
   resources :surrogates_tags
   resources :imports
   resources :resource_collections
@@ -10,9 +11,14 @@ Rails.application.routes.draw do
   resources :users
 
   root "surrogates#index"
-  match '/tagged', :to => 'surrogates#tagged', :as => 'tagged', via: [:get]
+
+  match '/import', :to => 'imports#new', :via => [:get]
+  match '/tagged', :to => 'surrogates#tagged', :as => 'tagged', :via => [:get]
   match '/about', :to => 'surrogates#about', :via => [:get]
   match '/contact', :to => 'surrogates#contact', :via => [:get]
+  match '/signup', :to => 'users#new', :via => [:get]
+  match '/signin', :to => 'sessions#new', :via => [:get]
+  match '/signout', :to => 'sessions#destroy', :via => [:get, :post, :delete]
 
 #  get 'imports/new'
 
