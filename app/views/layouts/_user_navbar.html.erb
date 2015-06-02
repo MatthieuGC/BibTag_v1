@@ -15,15 +15,14 @@
           <li><%= link_to "About", about_path %></li>
           <li><%= link_to "Contact", contact_path %></li>
 	  <% if signed_in? %>
-	  <li><%= link_to "My space", user_path(current_user) %></li>
+	  <li class="active"><%= link_to "My space", user_path(current_user) %></li>
 	  <li><%= link_to "Sign Out", signout_path, :method => :delete %></li>
 	  <% else %>
           <li><%= link_to "Sign Up!", signup_path %></li>
-          <li class="active"><%= link_to "Sign In", signin_path %></li>
+          <li><%= link_to "Sign In", signin_path %></li>
           <% end %>
         </ul>
       </div>
     </div>
   </nav>
-
 
