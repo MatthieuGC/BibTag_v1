@@ -1,6 +1,6 @@
 <%= render 'layouts/home_navbar' %>
 <div class="row">
-  <div class="col-sm-4"><%= button_to "Import BibTeX file", '/import', class: "btn btn-primary", style: "margin-top: 8px", method: "get" %></div>
+  <div class="col-sm-4"><%= button_to "Contribute", '/import', class: "btn btn-primary", style: "margin-top: 8px", method: "get" %></div>
   <div class="col-sm-4" style="margin-top: 8px"><%= form_tag surrogates_path, :method => 'get' do %>
     <div class="input-group add-on">
       <%= text_field_tag :search, params[:search], :class => "form-control" %>
@@ -10,6 +10,14 @@
     </div>
     <% end %>
   </div>
+  <% if signed_in? %>
+  <div class="col-sm-2"></div>
+  <div class="col-sm-2 form-group" style="margin-top: 8px">
+  <%= form_tag surrogates_path, :method => 'get' do %>
+    <%= select_tag :collection_name, options_from_collection_for_select(ResourceCollection.all, "id", "collection_name"), :prompt => "- Select a collection -", :class => "form-control", :onchange => "submit()"%>
+  <% end %>
+  </div>
+  <% end %>
 </div>
 <br />
 <table class="table table-bordered table-striped">
