@@ -69,6 +69,6 @@ class ResourceCollectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def resource_collection_params
-      params[:resource_collection]
+      params.require(:resource_collection).permit(:user_id, :collection_name)
     end
 end

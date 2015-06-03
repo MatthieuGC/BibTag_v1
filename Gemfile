@@ -51,6 +51,7 @@ group :development, :test do
     gem 'acts-as-taggable-on'
     gem 'delayed_job_active_record'
     gem 'progress_job'
+    gem 'mail_form'
   end
 
   group :test do

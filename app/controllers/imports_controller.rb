@@ -5,8 +5,10 @@ class ImportsController < ApplicationController
   end
 
   def create
-    ResourceCollection.create(:collection_name => "Default")
     @import = Import.new(import_params)
+    if @import.new_collection != ""
+      ResourceCollection.create(:user_id => current_user.id, :collection_name => @import.new_collection)
+    end
     # Récupère le nom du fichier .bib sans l'extension.
     @fName = @import.attachment.to_s.split('/').last.split('.').first
     # Renvoie sur la page d'acceuil
@@ -20,7 +22,17 @@ class ImportsController < ApplicationController
       # ... Convertie l'entrée bibtex en string
       @entry = @bib[i].to_s
       # ... Enregistre le surrogate dans la BDD.
-      @srg = ResourceCollection.first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+      if @import.collection_id != nil
+        if @import.new_collection != ""
+          @srg = ResourceCollection.where(:user_id => current_user.id, :collection_name => @import.new_collection).first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+        else 
+	  @srg = ResourceCollection.where(:id => @import.collection_id).first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+        end
+      elsif @import.new_collection != ""
+        @srg = ResourceCollection.where(:user_id => current_user.id, :collection_name => @import.new_collection).first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+      else
+        @srg = ResourceCollection.where(:collection_name => "Default").first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+      end 
       j = 0
       # ... Parcours chaque champs
       while @bib[i].entries[j] != nil do
@@ -72,7 +84,7 @@ class ImportsController < ApplicationController
   end
 
   private def import_params
-    params.require(:import).permit(:attachment)
+    params.require(:import).permit(:attachment, :collection_id, :new_collection)
   end
 
   private def surrogate_params

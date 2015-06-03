@@ -10,4 +10,5 @@
 
 class ResourceCollection < ActiveRecord::Base
   has_many :surrogates
+  belongs_to :users
 end

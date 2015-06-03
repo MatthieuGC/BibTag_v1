@@ -14,7 +14,7 @@
   <div class="col-sm-2"></div>
   <div class="col-sm-2 form-group" style="margin-top: 8px">
   <%= form_tag surrogates_path, :method => 'get' do %>
-    <%= select_tag :collection_name, options_from_collection_for_select(ResourceCollection.all, "id", "collection_name"), :prompt => "- Select a collection -", :class => "form-control", :onchange => "submit()"%>
+    <%= select_tag :collection_id, options_from_collection_for_select(ResourceCollection.where(:user_id => current_user), "id", "collection_name"), :prompt => "- Select a collection -", :class => "form-control", :onchange => "submit()"%>
   <% end %>
   </div>
   <% end %>

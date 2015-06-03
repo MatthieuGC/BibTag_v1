@@ -1,8 +1,13 @@
 class SurrogatesController < ApplicationController
   def index
-    @surrogates = Surrogate.all
     if params[:search]
       @surrogates = Surrogate.search(params[:search])
+    elsif (@col = ResourceCollection.where(:id => params[:collection_id]).first) != nil
+      if @col === "All"
+        @surrogates = Surrogate.all
+      else
+        @surrogates = @col.surrogates
+      end
     else
       @surrogates = Surrogate.all
     end

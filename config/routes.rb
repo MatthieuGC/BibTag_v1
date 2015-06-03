@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :surrogate_elements
   resources :surrogates
   resources :users
+  resources :contact
 
   root "pages#index"
  
@@ -16,7 +17,7 @@ Rails.application.routes.draw do
   match '/import', :to => 'imports#new', :via => [:get]
   match '/tagged', :to => 'surrogates#tagged', :as => 'tagged', :via => [:get]
   match '/about', :to => 'surrogates#about', :via => [:get]
-  match '/contact', :to => 'surrogates#contact', :via => [:get]
+  match '/contact', :to => 'contact#new', :via => [:get]
   match '/signup', :to => 'users#new', :via => [:get]
   match '/signin', :to => 'sessions#new', :via => [:get]
   match '/signout', :to => 'sessions#destroy', :via => [:get, :post, :delete]

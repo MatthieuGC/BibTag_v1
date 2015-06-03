@@ -1,0 +1,25 @@
+<%= render 'layouts/contact_navbar' %>
+<div>
+  <h3>Contact</h3>
+
+  <%= form_for :contact, :html => {:class => 'form-horizontal' } do |f| %>
+  <%= f.label :name %>
+  <br/>
+  <%= f.text_field :name, :required => true %>
+  <br/>
+  <%= f.label :email %>
+  <br/>
+  <%= f.text_field :email, :required => true %>
+  <br/>
+  <%= f.label :message %>
+  <br/>
+  <%= f.text_area :message, :as => :text, :required => true %>
+  <div class= "hidden">
+    <%= f.text_field :nickname, :hint => 'Leave this field blank!' %>
+  </div>
+  <div>
+    </br>
+    <%= f.submit 'Send message', :class=> "btn btn-primary" %>
+  </div>
+  <% end %>
+</div>

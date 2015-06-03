@@ -11,8 +11,21 @@
 
 <div class="well">
   <%= form_for @import, html: { multipart: true } do |f| %>
-    <%= f.label :attachment %>
+    <%= f.label "File to import" %>
     <%= f.file_field :attachment %>
+    <% if signed_in? %>
+    <%= f.label "Add to :", style: "margin-top: 10px" %>
+    <br />
+    <div class="row">
+    <div class="col-sm-2" align="left">
+      <%= f.select :collection_id, options_from_collection_for_select(ResourceCollection.where(:user_id => current_user), "id", "collection_name"), {:prompt => "- Select a collection -"}, class: "form-control", style: "input-lg" %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.text_field :new_collection, placeholder: "Create a new one", class: "form-control" %>
+    </div>
+    </div>
+    <br />
+    <% end %>
     <%= f.submit "Import", class: "btn btn-primary" %>
   <% end %>
 </div>

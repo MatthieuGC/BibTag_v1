@@ -11,6 +11,9 @@
 
 class User < ActiveRecord::Base
   attr_accessor :password
+
+  has_many :resource_collections
+
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   validates :nom, 

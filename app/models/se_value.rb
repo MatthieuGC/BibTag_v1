@@ -10,4 +10,7 @@
 #
 
 class SeValue < ActiveRecord::Base
+  def self.search(query)
+    where("value like ?", "%#{query}%")
+  end
 end

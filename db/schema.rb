@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601132000) do
+ActiveRecord::Schema.define(version: 20150603145153) do
+
+  create_table "contact_forms", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "message"
+    t.string   "nickname"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",         default: 0, null: false
@@ -34,8 +43,10 @@ ActiveRecord::Schema.define(version: 20150601132000) do
 
   create_table "imports", force: :cascade do |t|
     t.string   "attachment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "collection_id"
+    t.string   "new_collection"
   end
 
   create_table "keywords", force: :cascade do |t|
@@ -51,6 +62,7 @@ ActiveRecord::Schema.define(version: 20150601132000) do
     t.string   "collection_name"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "user_id"
   end
 
   create_table "se_values", force: :cascade do |t|

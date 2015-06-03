@@ -11,4 +11,9 @@
 
 class SeValues < ActiveRecord::Base
   belongs_to :surrogate_element
+  
+  def self.search(query)
+    where("value like ?", "%#{query}%")
+  end
+
 end
