@@ -2,10 +2,12 @@
 #
 # Table name: imports
 #
-#  id         :integer          not null, primary key
-#  attachment :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id             :integer          not null, primary key
+#  attachment     :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  collection_id  :integer
+#  new_collection :string
 #
 
 class Import < ActiveRecord::Base

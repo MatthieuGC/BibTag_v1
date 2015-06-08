@@ -15,6 +15,7 @@
 class Surrogate < ActiveRecord::Base
   acts_as_taggable_on :tags
   belongs_to :resource_collections
+  has_and_belongs_to_many :headings
   has_many :surrogate_elements, :dependent => :destroy
   has_many :keywords, :dependent => :destroy
   validates :entry_type, :presence => true

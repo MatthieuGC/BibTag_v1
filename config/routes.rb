@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :headings
+  resources :facet_leafs
+  resources :facets
   resources :sessions
   resources :surrogates_tags
   resources :imports

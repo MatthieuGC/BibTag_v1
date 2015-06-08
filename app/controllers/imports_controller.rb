@@ -6,15 +6,19 @@ class ImportsController < ApplicationController
 
   def create
     @import = Import.new(import_params)
-    if @import.new_collection != ""
-      ResourceCollection.create(:user_id => current_user.id, :collection_name => @import.new_collection)
-    end
     # Récupère le nom du fichier .bib sans l'extension.
     @fName = @import.attachment.to_s.split('/').last.split('.').first
     # Renvoie sur la page d'acceuil
     redirect_to surrogates_path, notice: "The BibTeX file #{@fName}.bib has been imported. Thank you for your contribution"
     # Parse le fichier .bib et l'enregistre dans une variable.
     @bib = BibTeX.open("./public/#{@import.attachment.to_s}")
+    
+    if @import.new_collection != ""
+      if current_user.nil?
+      else
+        ResourceCollection.create(:user_id => current_user.id, :collection_name => @import.new_collection)
+      end
+    end
    
     # Tant que le fichier contient des entrées bibtex (surrogate)...
     i = 0
@@ -24,12 +28,20 @@ class ImportsController < ApplicationController
       # ... Enregistre le surrogate dans la BDD.
       if @import.collection_id != nil
         if @import.new_collection != ""
-          @srg = ResourceCollection.where(:user_id => current_user.id, :collection_name => @import.new_collection).first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+          if current_user.nil?
+	    @srg = ResourceCollection.where(:id => @import.collection_id).first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+          else
+            @srg = ResourceCollection.where(:user_id => current_user.id, :collection_name => @import.new_collection).first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+	  end
         else 
 	  @srg = ResourceCollection.where(:id => @import.collection_id).first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
         end
       elsif @import.new_collection != ""
-        @srg = ResourceCollection.where(:user_id => current_user.id, :collection_name => @import.new_collection).first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+        if current_user.nil?
+          @srg = ResourceCollection.where(:collection_name => "Default").first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+        else
+          @srg = ResourceCollection.where(:user_id => current_user.id, :collection_name => @import.new_collection).first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+        end
       else
         @srg = ResourceCollection.where(:collection_name => "Default").first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
       end 
@@ -37,7 +49,9 @@ class ImportsController < ApplicationController
       # ... Parcours chaque champs
       while @bib[i].entries[j] != nil do
         # Nom du champ
-        @sField = @bib[i].entries[j].to_s.split('"')[0].split(/\W+/)[1]
+        if (@sField = @bib[i].entries[j].to_s.split('"')[0].split(/\W+/)[1]).nil?
+	  @sField = @bib[i].entries[j].to_s.split('"')[1].split(/\W+/)[1]
+	end
 	k = 0
         # Valeurs d'un champs
 	if @sField === "keywords"

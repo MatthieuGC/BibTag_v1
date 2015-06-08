@@ -1,0 +1,69 @@
+<%= render 'layouts/home_navbar' %>
+<div class="row">
+  <div class="col-sm-2"><%= button_to "Contribute", '/import', class: "btn btn-primary", style: "margin-top: 8px", method: "get" %></div>
+  
+  <%= form_tag facets_path, :method => 'get' do %>
+  <div class="col-sm-2" style="margin-top: 8px">
+    <%= select_tag :issue, options_from_collection_for_select(FacetLeaf.first.headings, "id", "heading_name"), :prompt => "ISSUE", :class => "form-control" %>
+  </div>  
+  <div class="col-sm-2" style="margin-top: 8px">
+    <%= select_tag :technique, options_from_collection_for_select(FacetLeaf.second.headings, "id", "heading_name"), :prompt => "TECHNIQUES", :class => "form-control" %>
+  </div>  
+  <div class="col-sm-2" style="margin-top: 8px">
+    <%= select_tag :process, options_from_collection_for_select(FacetLeaf.third.headings, "id", "heading_name"), :prompt => "PROCESS", :class => "form-control" %>
+  </div>  
+  <div class="col-sm-2" style="margin-top: 8px">
+    <%= submit_tag "Search", :class => "btn btn-success" %>
+  </div>  
+  <% end %>
+  <% if signed_in? %>
+  <div class="col-sm-2 form-group" style="margin-top: 8px">
+  <%= form_tag facets_path, :method => 'get' do %>
+    <%= select_tag :collection_id, options_from_collection_for_select(ResourceCollection.where(:user_id => current_user), "id", "collection_name"), :prompt => "- Select a collection -", :class => "form-control", :onchange => "submit()"%>
+  <% end %>
+  </div>
+  <% end %>
+</div>
+<br />
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Title</th>
+      <th>Author(s)</th>
+      <th>Details</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @surrogates.each do |srg| %>
+      <tr>
+        <td><%= srg.entry_type %></td>
+        <td><%= srg.surrogate_elements.where(field_name: "title").first.se_values.first.value %></td>
+        <td><%= if srg.surrogate_elements.where(field_name: "author").first != nil
+		  x = srg.surrogate_elements.where(field_name: "author").first.se_values.each do |a|
+		    a.value
+		  end
+		  i = 0
+		  @authors = ""
+		  while x[i] != nil do
+		    if x[i+1] != nil
+		      @authors = @authors+"#{x[i].value} and "
+		    else
+		      @authors = @authors+"#{x[i].value}"
+		    end
+		  i = i+1
+		  end
+		  puts = @authors
+		end
+	%></td>
+        <td align="center"><%= button_to 'Details', srg, class: "btn btn-info", method: "get" %>
+        <td align="center"><%= if srg.url != nil 
+		  button_to "View Resource", srg.url, class: "btn btn-success", method: "get"
+		end
+	%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

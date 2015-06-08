@@ -1,0 +1,29 @@
+<div class="page-header">
+  <%= link_to new_facet_leaf_path, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    New Facet leaf
+  <% end %>
+  <h1>Listing facet_leafs</h1>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+            <th>Facet</th>
+            <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= content_tag_for(:tr, @facet_leafs) do |facet_leaf| %>
+            <td><%= facet_leaf.facet_id %></td>
+            <td><%= link_to 'Show', facet_leaf %></td>
+        <td><%= link_to 'Edit', edit_facet_leaf_path(facet_leaf) %></td>
+        <td><%= link_to 'Destroy', facet_leaf, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>

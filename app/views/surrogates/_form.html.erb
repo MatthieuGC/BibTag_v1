@@ -1,4 +1,4 @@
-<%= form_for(@surrogate) do |f| %>
+<%= form_for @surrogate do |f| %>
   <% if @surrogate.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@surrogate.errors.count, "error") %> prohibited this surrogate from being saved:</h2>
@@ -10,9 +10,24 @@
       </ul>
     </div>
   <% end %>
-
+  
+  <h6>Add some tags (separated by commas) :</h6>
   <div class="actions">
     <%= f.text_field :tag_list, :value => " ", :size => 30 %>
     <%= f.submit "+", class: "btn btn-success btn-xs"%>
   </div>
+  
+  <h6>Add this article to some facets :</h6>
+  <div class="actions row">
+    <div class="col-sm-4">
+    <%= select_tag :issue, options_from_collection_for_select(FacetLeaf.first.headings, "id", "heading_name"), :prompt => "ISSUE", :class => "form-control" %>
+    </div>
+    <div class="col-sm-4">
+    <%= select_tag :technique, options_from_collection_for_select(FacetLeaf.second.headings, "id", "heading_name"), :prompt => "TECHNIQUE", :class => "form-control" %>
+    </div>
+    <div class="col-sm-4">
+    <%= select_tag :process, options_from_collection_for_select(FacetLeaf.third.headings, "id", "heading_name"), :prompt => "PROCESS", :class => "form-control" %>
+    </div>
+  </div>
+    <%= submit_tag "Validate", :class => "btn btn-success" %>
 <% end %>

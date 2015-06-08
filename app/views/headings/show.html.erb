@@ -1,0 +1,20 @@
+<div class="page-header">
+  <%= link_to headings_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_heading_path(@heading), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show heading</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Heading name:</dt>
+  <dd><%= @heading.heading_name %></dd>
+
+  <dt>Facet:</dt>
+  <dd><%= @heading.facet_id %></dd>
+
+</dl>

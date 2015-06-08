@@ -8,6 +8,7 @@
       <%= submit_tag "Search", :name => nil, :class => "btn btn-success" %>
       </div>
     </div>
+    <%= link_to "Facet research", facets_path, :style => "color: blue", method: "get" %>
     <% end %>
   </div>
   <% if signed_in? %>
@@ -54,7 +55,7 @@
 	%></td>
         <td align="center"><%= button_to 'Details', srg, class: "btn btn-info", method: "get" %>
         <td align="center"><%= if srg.url != nil 
-		  button_to "View Resource", srg.url, class: "btn btn-success", method: "get"
+		  button_to "Show", srg.url, class: "btn btn-success", method: "get"
 		end
 	%></td>
       </tr>
