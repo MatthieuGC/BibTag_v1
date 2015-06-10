@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150604140600) do
+ActiveRecord::Schema.define(version: 20150604135502) do
 
   create_table "contact_forms", force: :cascade do |t|
     t.string   "name"
@@ -40,11 +40,6 @@ ActiveRecord::Schema.define(version: 20150604140600) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
-
-  create_table "facet_composites", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "facet_leafs", force: :cascade do |t|
     t.integer  "facet_id"

@@ -47,11 +47,20 @@ group :development, :test do
     gem 'carrierwave'
     gem 'bootstrap-sass'
     gem 'bootstrap-generators'
+    gem 'autoprefixer-rails'
     gem 'annotate'
     gem 'acts-as-taggable-on'
     gem 'delayed_job_active_record'
     gem 'progress_job'
     gem 'mail_form'
+
+    gem 'elasticsearch-model'
+    gem 'elasticsearch-rails'
+    gem 'random-word'
+    gem 'pry'
+    gem 'pry-rails'
+    gem 'quiet_assets'
+    gem 'better_errors'
   end
 
   group :test do
