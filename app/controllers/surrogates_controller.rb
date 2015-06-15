@@ -1,5 +1,12 @@
 class SurrogatesController < ApplicationController
   def index
+    @export = Surrogate.order(:entry_key)
+    respond_to do |format|
+      format.html
+      format.csv { send_data @export.to_csv }
+      format.xls # {send_data @export.to_csv(col_sep: "\t") }
+    end
+
     @facets = Facet.all
     @i = 1
     @path = ""
