@@ -28,7 +28,7 @@
     <div class="panel-body">
       <table>
         <% @i = 1 %>
-        <% @facets.all.each do |f| %>	
+        <% @facets.each do |f| %>	
 	  <tr><td><h5><b><%= f.facet_name %></b></h5></td></tr>
 	    <% f.facet_leafs.first.headings.each do |h| %>
 	      <% @count = h.surrogates & @surrogates %>
