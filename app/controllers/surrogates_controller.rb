@@ -1,15 +1,28 @@
 class SurrogatesController < ApplicationController
   def index
-    if params[:search]
-      @surrogates = Surrogate.search(params[:search])
-    elsif (@col = ResourceCollection.where(:id => params[:collection_id]).first) != nil
-      if @col === "All"
-        @surrogates = Surrogate.all
-      else
-        @surrogates = @col.surrogates
+    @facets = Facet.all
+    @i = 1
+    @path = ""
+    @colName = ""
+    @surrogates = Surrogate.all
+    while @i <= Heading.count
+      if params[":heading"+"#{@i}"]
+        @path = @path+"> #{params[":heading"+"#{@i}"]} "
+        @surrogates = @surrogates & Surrogate.joins(:headings).where("headings.heading_name = '#{params[":heading"+"#{@i}"]}'")
       end
-    else
-      @surrogates = Surrogate.all
+      @i = @i + 1
+
+      if params[:search]
+        @surrogates = @surrogates & Surrogate.search(params[:search])
+      elsif (@col = ResourceCollection.where(:id => params[:collection_id]).first) != nil
+        if @col === "All"
+          @surrogates = Surrogate.all
+        else
+          @surrogates = @surrogates & @col.surrogates
+	  @colName = "Collection : #{@col.collection_name} "
+        end
+      end
+
     end
   end
 
