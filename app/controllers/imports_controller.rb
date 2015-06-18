@@ -71,7 +71,7 @@ class ImportsController < ApplicationController
         else
           @srgElmt = @srg.surrogate_elements.create(:field_name => @sField)
 	  while @sValue[k] != nil do
-            @seValue = @srgElmt.se_values.create(:value => @sValue[k].strip)
+            @seValue = @srgElmt.se_values.create(:value => @sValue[k].strip, :surrogate_id => @srgElmt.surrogate_id)
             k = k+1
 	  end
 	  k = 0

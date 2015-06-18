@@ -1,19 +1,23 @@
 class SurrogatesController < ApplicationController
   def index
     @facets = Facet.all
-    @i = 1
-    @path = ""
+    @i = 0
+    @pathRemember = []
     @colName = ""
+    @search = ""
     @surrogates = Surrogate.all
+
     while @i <= Heading.count
       if params[":heading"+"#{@i}"]
-        @path = @path+"> #{params[":heading"+"#{@i}"]} "
+        @pathRemember<<params[":heading"+"#{@i}"]
         @surrogates = @surrogates & Surrogate.joins(:headings).where("headings.heading_name = '#{params[":heading"+"#{@i}"]}'")
       end
       @i = @i + 1
 
-      if params[:search]
+      if !params[:search].blank?
+        @search = "> "+params[:search]
         @surrogates = @surrogates & Surrogate.search(params[:search])
+        #@surrogates = @surrogates & Surrogate.joins(:se_values).where("value like ?", "%#{params[:search]}%")
       elsif (@col = ResourceCollection.where(:id => params[:collection_id]).first) != nil
         if @col === "All"
           @surrogates = Surrogate.all
@@ -22,7 +26,20 @@ class SurrogatesController < ApplicationController
 	  @colName = "Collection : #{@col.collection_name} "
         end
       end
+    end
 
+    if params[:heading]
+      @surrogates = @surrogates & Surrogate.joins(:headings).where("headings.heading_name = '#{params[:heading]}'")
+      @ok = 1
+      while @i < @pathRemember.length
+        if @pathRemember[@i].to_s === params[:heading].to_s
+	  @ok = 0
+	end
+	@i = @i +1
+      end
+      if @ok === 1
+	@pathRemember<<params[:heading]
+      end
     end
   end
 

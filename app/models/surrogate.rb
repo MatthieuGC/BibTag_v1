@@ -17,6 +17,7 @@ class Surrogate < ActiveRecord::Base
   belongs_to :resource_collections
   has_and_belongs_to_many :headings
   has_many :surrogate_elements, :dependent => :destroy
+  has_many :se_values
   has_many :keywords, :dependent => :destroy
   validates :entry_type, :presence => true
   validates :entry_key, :presence => true

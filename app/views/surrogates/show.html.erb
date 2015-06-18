@@ -24,9 +24,21 @@
   <%= @surrogate.surrogate_elements.where(field_name: "title").first.se_values.first.value %>
 </h2>
 <br />
+<% if !@surrogate.surrogate_elements.where(field_name: "abstract").first.nil? %>
+<div class="row">
+<div class="col-sm-6">
+<% end %>
 
 <%= render 'content' %>
 
+<% if !@surrogate.surrogate_elements.where(field_name: "abstract").first.nil? %>
+</div>
+<div class="well col-sm-6">
+<h4 align="left"><b>Abstract</b></h4>
+<%= @surrogate.surrogate_elements.where(field_name: "abstract").first.se_values.first.value %>
+</div>
+</div>
+<% end %>
 <br />
 <p>
   <b>tags : </b>

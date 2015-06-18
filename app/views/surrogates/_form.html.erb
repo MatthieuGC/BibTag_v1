@@ -17,6 +17,29 @@
     <%= f.submit "+", class: "btn btn-success btn-xs"%>
   </div>
   
+<% if !@surrogate.headings.blank? %>
+This ressource is classified in :
+<div class="row" style="margin-top: 10px; margin-left: 0px">
+  <% if !@surrogate.headings.first.nil? %>
+  <div class="col-sm-2" style="border-left: 1px solid #ccc">
+    <h4><b><%= Facet.joins(:facet_leafs).where("#{@surrogate.headings.first.facet_leaf_id} = facet_leafs.id").first.facet_name %></b></h4>
+    <h6><%= @surrogate.headings.first.heading_name %></h6>
+  </div>
+  <% end %>
+  <% if !@surrogate.headings.second.nil? %>
+  <div class="col-sm-2" style="border-left: 1px solid #ccc">
+    <h4><b><%= Facet.joins(:facet_leafs).where("#{@surrogate.headings.second.facet_leaf_id} = facet_leafs.id").first.facet_name %></b></h4>
+    <h6><%= @surrogate.headings.second.heading_name %></h6>
+  </div>
+  <% end %>
+  <% if !@surrogate.headings.third.nil? %>
+  <div class="col-sm-2" style="border-left: 1px solid #ccc">
+    <h4><b><%= Facet.joins(:facet_leafs).where("#{@surrogate.headings.third.facet_leaf_id} = facet_leafs.id").first.facet_name %></b></h4>
+    <h6><%= @surrogate.headings.third.heading_name %></h6>
+  </div>
+  <% end %>
+</div>
+<% else %>
   <h6>Add this article to some facets :</h6>
   <div class="actions row">
     <div class="col-sm-4">
@@ -30,4 +53,5 @@
     </div>
   </div>
     <%= submit_tag "Validate", :class => "btn btn-success" %>
+<% end %>
 <% end %>

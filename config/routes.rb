@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :contacts
   resources :headings
   resources :facet_leafs
   resources :facets
@@ -12,7 +13,6 @@ Rails.application.routes.draw do
   resources :surrogate_elements
   resources :surrogates
   resources :users
-  resources :contact
 
   root "pages#index"
  
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   match '/signin', :to => 'sessions#new', :via => [:get]
   match '/signout', :to => 'sessions#destroy', :via => [:get, :post, :delete]
   match '/csv', :to => 'surrogates#csv', :as => 'csv', :via => [:get]
-
+  
 #  get 'imports/new'
 
 #  get 'imports/create'

@@ -7,6 +7,7 @@
 #  surrogate_element_id :integer
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  surrogate_id         :integer
 #
 
 class SeValue < ActiveRecord::Base
