@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data xlink:type="simple" xlink:href="http://localhost:3000">[FACET]</Data></Cell>
+        <% @facet1.headings.each do |f| %>
+          <Cell><Data ss:Type="String"><%= f.heading_name %></Data></Cell>
+	<% end %>
+      </Row>
+      <% @facet2.headings.each do |f| %>
+      <% @i = 1 %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= f.heading_name %></Data></Cell>
+	<% while @i <= @facet1.headings.count %>
+	  <% @count = f.surrogates & @facet1.headings.find(@i).surrogates %>
+	  <% if !(@count.count === 0) %>
+            <Cell><Data ss:Type="String">[<%= @count.count %>]</Data></Cell>
+	  <% else %>
+	    <Cell><Data ss:Type="String"></Data></Cell>
+	  <% end %>
+	  <% @i = @i + 1 %>
+        <% end %>
+      </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
