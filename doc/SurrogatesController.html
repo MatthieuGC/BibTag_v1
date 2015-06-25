@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class SurrogatesController - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-csv">#csv</a>
+    
+    <li ><a href="#method-i-index">#index</a>
+    
+    <li ><a href="#method-i-show">#show</a>
+    
+    <li ><a href="#method-i-surrogate_params">#surrogate_params</a>
+    
+    <li ><a href="#method-i-tagged">#tagged</a>
+    
+    <li ><a href="#method-i-update">#update</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-SurrogatesController">
+  <h1 id="class-SurrogatesController" class="class">
+    class SurrogatesController
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-csv" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">csv</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Pour l&#39;export de tableaux</p>
+          
+          
+
+          
+          <div class="method-source-code" id="csv-source">
+            <pre><span class="ruby-comment"># File app/controllers/surrogates_controller.rb, line 103</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">csv</span>
+  <span class="ruby-comment"># TEMPORAIRE // Tout les surrogates organisés par entry_key</span>
+  <span class="ruby-ivar">@export</span> = <span class="ruby-constant">Surrogate</span>.<span class="ruby-identifier">order</span>(<span class="ruby-value">:entry_key</span>)
+  <span class="ruby-comment"># TEMPORAIRE // Deux facettes au hasard pour les tests</span>
+  <span class="ruby-ivar">@facet1</span> = <span class="ruby-constant">Facet</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">facet_leafs</span>.<span class="ruby-identifier">first</span>
+  <span class="ruby-ivar">@facet2</span> = <span class="ruby-constant">Facet</span>.<span class="ruby-identifier">second</span>.<span class="ruby-identifier">facet_leafs</span>.<span class="ruby-identifier">first</span>
+  <span class="ruby-comment"># Défini différents formats d&#39;export.</span>
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">csv</span> { <span class="ruby-identifier">send_data</span> <span class="ruby-ivar">@export</span>.<span class="ruby-identifier">to_csv</span> }
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">xls</span> <span class="ruby-comment"># {send_data @export.to_csv(col_sep: &quot;\t&quot;) }</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-index" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">index</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Pour la navigation</p>
+          
+          
+
+          
+          <div class="method-source-code" id="index-source">
+            <pre><span class="ruby-comment"># File app/controllers/surrogates_controller.rb, line 3</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
+
+<span class="ruby-comment">#------ INITIALIZATION ------#</span>
+    
+    <span class="ruby-comment"># TEMPORAIRE // On récupère toutes les facettes (classification unique)</span>
+    <span class="ruby-comment"># et toutes les descriptions.</span>
+    <span class="ruby-ivar">@facets</span> = <span class="ruby-constant">Facet</span>.<span class="ruby-identifier">all</span>
+    <span class="ruby-ivar">@surrogates</span> = <span class="ruby-constant">Surrogate</span>.<span class="ruby-identifier">all</span>
+
+    <span class="ruby-comment"># Variable d&#39;incrémentation</span>
+    <span class="ruby-ivar">@i</span> = <span class="ruby-value">0</span>
+
+    <span class="ruby-comment"># Tableau pour se remémorer le chemin parcouru via les facettes</span>
+    <span class="ruby-ivar">@pathRemember</span> = []
+
+    <span class="ruby-comment"># Initialise deux chaines de caractères pour l&#39;affichage</span>
+    <span class="ruby-comment"># &gt; Collection sélectionnée</span>
+    <span class="ruby-ivar">@colName</span> = <span class="ruby-string">&quot;&quot;</span>
+    <span class="ruby-comment"># &gt; Mot/phrase utilisée pour la recherche</span>
+    <span class="ruby-ivar">@search</span> = <span class="ruby-string">&quot;&quot;</span>
+
+<span class="ruby-comment">#------------#</span>
+
+<span class="ruby-comment">#-------- NAVIGATION --------#</span>
+
+    <span class="ruby-comment"># Si l&#39;utilisateur sélectionne un heading dans le chemin parcouru</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:heading</span>]
+      <span class="ruby-comment"># On sélectionne les surrogates correspondants</span>
+      <span class="ruby-ivar">@surrogates</span> = <span class="ruby-ivar">@surrogates</span> <span class="ruby-operator">&amp;</span> <span class="ruby-constant">Surrogate</span>.<span class="ruby-identifier">joins</span>(<span class="ruby-value">:headings</span>).<span class="ruby-identifier">where</span>(<span class="ruby-node">&quot;headings.heading_name = &#39;#{params[:heading]}&#39;&quot;</span>)
+      <span class="ruby-comment"># On déclare une variable d&#39;arret</span>
+      <span class="ruby-ivar">@ok</span> = <span class="ruby-value">1</span>
+      <span class="ruby-comment"># Tant que i est inférieur à la longueur du tableau de parcours</span>
+      <span class="ruby-keyword">while</span> <span class="ruby-ivar">@i</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@pathRemember</span>.<span class="ruby-identifier">length</span>
+        <span class="ruby-comment"># On vérifie si le headings n&#39;est pas déjà dans le teableau</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@pathRemember</span>[<span class="ruby-ivar">@i</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:heading</span>].<span class="ruby-identifier">to_s</span>
+          <span class="ruby-ivar">@ok</span> = <span class="ruby-value">0</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-ivar">@i</span> = <span class="ruby-ivar">@i</span> <span class="ruby-operator">+</span><span class="ruby-value">1</span>
+      <span class="ruby-keyword">end</span> <span class="ruby-comment"># While End</span>
+      <span class="ruby-comment"># Si le heading n&#39;est pas déjà dans le tableau</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-ivar">@ok</span> <span class="ruby-operator">===</span> <span class="ruby-value">1</span>
+        <span class="ruby-comment"># On ajoute le heading sélectionné au tableau de parcours</span>
+        <span class="ruby-ivar">@pathRemember</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-identifier">params</span>[<span class="ruby-value">:heading</span>]
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># Tant que i est inférieur au nombre de headings</span>
+    <span class="ruby-keyword">while</span> <span class="ruby-ivar">@i</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-constant">Heading</span>.<span class="ruby-identifier">count</span>
+      <span class="ruby-comment"># Si l&#39;utilisateur à sélectionné le heading i</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-string">&quot;:heading&quot;</span><span class="ruby-operator">+</span><span class="ruby-node">&quot;#{@i}&quot;</span>]
+
+  <span class="ruby-comment">##------ VERIFIE QUE LE CHEMIN N&#39;EXISTE PAS DEJA ------##</span>
+
+        <span class="ruby-comment"># On déclare une variable d&#39;arret et d&#39;incrémentation</span>
+        <span class="ruby-ivar">@ok</span> = <span class="ruby-value">1</span>
+        <span class="ruby-ivar">@j</span> = <span class="ruby-value">0</span>
+        <span class="ruby-comment"># Tant que i est inférieur à la longueur du tableau de parcours</span>
+        <span class="ruby-keyword">while</span> <span class="ruby-ivar">@j</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@pathRemember</span>.<span class="ruby-identifier">length</span>
+          <span class="ruby-comment"># On vérifie si le headings n&#39;est pas déjà dans le teableau</span>
+          <span class="ruby-keyword">if</span> <span class="ruby-ivar">@pathRemember</span>[<span class="ruby-ivar">@j</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">params</span>[<span class="ruby-string">&quot;:heading&quot;</span><span class="ruby-operator">+</span><span class="ruby-node">&quot;#{@i}&quot;</span>].<span class="ruby-identifier">to_s</span>
+            <span class="ruby-ivar">@ok</span> = <span class="ruby-value">0</span>
+          <span class="ruby-keyword">end</span>
+          <span class="ruby-ivar">@j</span> = <span class="ruby-ivar">@j</span> <span class="ruby-operator">+</span><span class="ruby-value">1</span>
+        <span class="ruby-keyword">end</span> <span class="ruby-comment"># While End</span>
+        <span class="ruby-comment"># Si le heading n&#39;est pas déjà dans le tableau</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@ok</span> <span class="ruby-operator">===</span> <span class="ruby-value">1</span>
+          <span class="ruby-comment"># On ajoute le heading sélectionné au tableau de parcours.</span>
+          <span class="ruby-ivar">@pathRemember</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-identifier">params</span>[<span class="ruby-string">&quot;:heading&quot;</span><span class="ruby-operator">+</span><span class="ruby-node">&quot;#{@i}&quot;</span>]
+        <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment">##------------##</span>
+
+        <span class="ruby-comment"># Les surrogates à afficher sont ceux liés à ce heading (+ les précédents)</span>
+        <span class="ruby-ivar">@surrogates</span> = <span class="ruby-ivar">@surrogates</span> <span class="ruby-operator">&amp;</span> <span class="ruby-constant">Surrogate</span>.<span class="ruby-identifier">joins</span>(<span class="ruby-value">:headings</span>).<span class="ruby-identifier">where</span>(<span class="ruby-node">&quot;headings.heading_name = &#39;#{params[&quot;:heading&quot;+&quot;#{@i}&quot;]}&#39;&quot;</span>)
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-comment"># Incrémentation</span>
+      <span class="ruby-ivar">@i</span> = <span class="ruby-ivar">@i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+      
+      <span class="ruby-comment"># Si l&#39;utilisateur utilise le champs de recherche manuel</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>].<span class="ruby-identifier">blank?</span>
+        <span class="ruby-comment"># On enregistré son entré pour l&#39;affichage</span>
+        <span class="ruby-ivar">@search</span> = <span class="ruby-string">&quot;&gt; &quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>]
+        <span class="ruby-comment"># Les surrogates à afficher sont ceux liés à cette entrée (+ les éléments déjà filtrés)</span>
+        <span class="ruby-ivar">@surrogates</span> = <span class="ruby-ivar">@surrogates</span> <span class="ruby-operator">&amp;</span> <span class="ruby-constant">Surrogate</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>])     
+      <span class="ruby-comment"># Sinon si l&#39;utilisateur sélectionne une collection</span>
+      <span class="ruby-keyword">elsif</span> (<span class="ruby-ivar">@col</span> = <span class="ruby-constant">ResourceCollection</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:collection_id</span>]).<span class="ruby-identifier">first</span>) <span class="ruby-operator">!=</span> <span class="ruby-keyword">nil</span>
+        <span class="ruby-comment"># Si la collection est &quot;all&quot; on affiche tout les surrogates</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@col</span> <span class="ruby-operator">===</span> <span class="ruby-string">&quot;All&quot;</span>
+          <span class="ruby-ivar">@surrogates</span> = <span class="ruby-constant">Surrogate</span>.<span class="ruby-identifier">all</span>
+        <span class="ruby-comment"># Sinon on affiche les surrogates de la collection (correspondant au filtrage déjà effectué)</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-ivar">@surrogates</span> = <span class="ruby-ivar">@surrogates</span> <span class="ruby-operator">&amp;</span> <span class="ruby-ivar">@col</span>.<span class="ruby-identifier">surrogates</span>
+          <span class="ruby-comment"># Enregistre le nom de la collection pour l&#39;affichage</span>
+          <span class="ruby-ivar">@colName</span> = <span class="ruby-node">&quot;Collection : #{@col.collection_name} &quot;</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span> <span class="ruby-comment"># While End</span>
+  <span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-show" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">show</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Pour l&#39;affichage des détails d&#39;un surrogate</p>
+          
+          
+
+          
+          <div class="method-source-code" id="show-source">
+            <pre><span class="ruby-comment"># File app/controllers/surrogates_controller.rb, line 118</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
+  <span class="ruby-comment"># Sélectionne le surrogate choisi pour afficher ses détails.</span>
+  <span class="ruby-ivar">@surrogate</span> = <span class="ruby-constant">Surrogate</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-surrogate_params" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">surrogate_params</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Défini les champs de la BDD modifiables.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="surrogate_params-source">
+            <pre><span class="ruby-comment"># File app/controllers/surrogates_controller.rb, line 193</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">surrogate_params</span>
+  <span class="ruby-identifier">params</span>.<span class="ruby-identifier">require</span>(<span class="ruby-value">:surrogate</span>).<span class="ruby-identifier">permit</span>(<span class="ruby-value">:entry_key</span>, <span class="ruby-value">:entry_type</span>, <span class="ruby-value">:doi</span>, <span class="ruby-value">:url</span>, <span class="ruby-value">:tag_list</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-tagged" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">tagged</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Pour l&#39;affichage des surrogates par tag</p>
+          
+          
+
+          
+          <div class="method-source-code" id="tagged-source">
+            <pre><span class="ruby-comment"># File app/controllers/surrogates_controller.rb, line 124</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">tagged</span>
+  <span class="ruby-comment"># Si l&#39;utilisateur sélectionne un tag</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:tag</span>].<span class="ruby-identifier">present?</span>
+    <span class="ruby-comment"># On récupère tout les surrogates liés à ce tag</span>
+    <span class="ruby-ivar">@surrogates</span> = <span class="ruby-constant">Surrogate</span>.<span class="ruby-identifier">tagged_with</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:tag</span>])
+    <span class="ruby-comment"># On enregistre le nom de ce tag pour l&#39;affichage</span>
+    <span class="ruby-ivar">@tag</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:tag</span>]
+  <span class="ruby-comment"># Par default, la page affiche tout les surrogates (n&#39;est pas sensé arriver)</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@surrogates</span> = <span class="ruby-constant">Surrogate</span>.<span class="ruby-identifier">all</span>
+    <span class="ruby-ivar">@tag</span> = <span class="ruby-string">&quot;All&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-update" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Pour la modification d&#39;un surrogate</p>
+          
+          
+
+          
+          <div class="method-source-code" id="update-source">
+            <pre><span class="ruby-comment"># File app/controllers/surrogates_controller.rb, line 139</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
+  <span class="ruby-comment"># Sélectionne le surrogate choisi pour afficher ses détails.</span>
+  <span class="ruby-ivar">@surrogate</span> = <span class="ruby-constant">Surrogate</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-comment"># S&#39;ils existent, on ajoute les tags entré par l&#39;utilisateur</span>
+  <span class="ruby-ivar">@surrogate</span>.<span class="ruby-identifier">tag_list</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:surrogate</span>][<span class="ruby-value">:tag_list</span>], <span class="ruby-identifier">parse</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>)
+  <span class="ruby-comment"># On sauvegarde ces tags</span>
+  <span class="ruby-ivar">@surrogate</span>.<span class="ruby-identifier">save</span>
+  <span class="ruby-comment"># Si l&#39;utilisateur à sélectionné un headings de la facette ISSUE</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-value">:issue</span>].<span class="ruby-identifier">blank?</span>
+    <span class="ruby-comment"># On parcours tout les headings déjà associés à ce surrogate</span>
+    <span class="ruby-ivar">@surrogate</span>.<span class="ruby-identifier">headings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">h</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment"># Si l&#39;un d&#39;entre eux est déjà inclu dans la facette ISSUE</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">facet_leaf_id</span> <span class="ruby-operator">===</span> <span class="ruby-constant">Heading</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:issue</span>]).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">facet_leaf_id</span>
+        <span class="ruby-comment"># On affiche un message d&#39;erreur</span>
+        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;This resource is already in one of the ISSUE headings!&quot;</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment"># Sinon on lie le heading sélectionné au surrgoate.</span>
+    <span class="ruby-ivar">@surrogate</span>.<span class="ruby-identifier">headings</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Heading</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:issue</span>]).<span class="ruby-identifier">first</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># Si l&#39;utilisateur à sélectionné un headings de la facette TECHNIQUE</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-value">:technique</span>].<span class="ruby-identifier">blank?</span>
+    <span class="ruby-comment"># On parcours tout les headings déjà associés à ce surrogate</span>
+    <span class="ruby-ivar">@surrogate</span>.<span class="ruby-identifier">headings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">h</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment"># Si l&#39;un d&#39;entre eux est déjà inclu dans la facette TECHNIQUE</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">facet_leaf_id</span> <span class="ruby-operator">===</span> <span class="ruby-constant">Heading</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:technique</span>]).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">facet_leaf_id</span>
+        <span class="ruby-comment"># On affiche un message d&#39;erreur</span>
+        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;This resource is already in one of the TECHNIQUE headings!&quot;</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment"># Sinon on lie le heading sélectionné au surrgoate.</span>
+    <span class="ruby-ivar">@surrogate</span>.<span class="ruby-identifier">headings</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Heading</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:technique</span>]).<span class="ruby-identifier">first</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># Si l&#39;utilisateur à sélectionné un headings de la facette PROCESS</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-value">:process</span>].<span class="ruby-identifier">blank?</span>
+    <span class="ruby-comment"># On parcours tout les headings déjà associés à ce surrogate</span>
+    <span class="ruby-ivar">@surrogate</span>.<span class="ruby-identifier">headings</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">h</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment"># Si l&#39;un d&#39;entre eux est déjà inclu dans la facette PROCESS</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">h</span>.<span class="ruby-identifier">facet_leaf_id</span> <span class="ruby-operator">===</span> <span class="ruby-constant">Heading</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:process</span>]).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">facet_leaf_id</span>
+        <span class="ruby-comment"># On affiche un message d&#39;erreur</span>
+        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;This resource is already in one of the PROCESS headings!&quot;</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment"># Sinon on lie le heading sélectionné au surrgoate.</span>
+    <span class="ruby-ivar">@surrogate</span>.<span class="ruby-identifier">headings</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Heading</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:process</span>]).<span class="ruby-identifier">first</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># On rafraichi la page.</span>
+  <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:back</span>, <span class="ruby-identifier">notice</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;Done!&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

@@ -4,17 +4,7 @@ class FacetsController < ApplicationController
   # GET /facets
   # GET /facets.json
   def index
-    @surrogates = Surrogate.all
-    if !params[:issue].blank?
-      @query1 = "headings.id = #{params[:issue]} "
-    end
-    if !params[:technique].blank?
-      @query2 = "headings.id = #{params[:technique]} "
-    end
-    if !params[:process].blank?
-      @query3 = "headings.id = #{params[:process]}"
-    end
-    @surrogates = Surrogate.joins(:headings).where(@query1) & Surrogate.joins(:headings).where(@query2) & Surrogate.joins(:headings).where(@query3)
+    @facets = Facet.all
   end
 
   # GET /facets/1

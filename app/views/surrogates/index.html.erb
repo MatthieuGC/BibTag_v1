@@ -1,4 +1,9 @@
+<!-- Barre de navigation -->
+
 <%= render 'layouts/home_navbar' %>
+
+<!-- Boutons contribution + recherche par mot clef -->
+
 <div class="row">
   <div class="col-sm-4"><%= button_to "Contribute", '/import', class: "btn btn-primary", style: "margin-top: 8px", method: "get" %></div>
   <div class="col-sm-4" style="margin-top: 8px"><%= form_tag surrogates_path, :method => 'get' do %>
@@ -21,6 +26,8 @@
 </div>
 <br />
 
+<!-- Panneau de recherche par facette -->
+
 <div class="row">
 <div class="col-sm-3">
   <div class="panel panel-info">
@@ -42,11 +49,16 @@
   </div>
 </div>
   
+<!-- Affichage du chemin parcouru -->
+
 <div class="col-sm-9">
 <%= @colName %>
 <% @pathRemember.each do |p| %>
 > <%= link_to p, surrogates_path(:heading => p), class: "btn btn-link" %>
 <% end %>
+
+<!-- Affichage des ressources -->
+
 <table class="table table-bordered table-striped">
   <thead>
     <tr>

@@ -1,4 +1,9 @@
+<!-- Affichage de la barre de navigation -->
+
 <%= render 'layouts/signin_navbar' %>
+
+<!-- Formulaire de connexion -->
+
 <h1>Sign in!</h1>
 
 <%= form_for(:session, :url => sessions_path) do |f| %>
@@ -14,5 +19,9 @@
     <%= f.submit "Sign in!" %>
   </div>
 <% end %>
+
+<!-- Si l'utilisateur n'est pas inscrit, on guide vers la page
+d'inscription -->
+
 <p>Not already registered ? <%= link_to "Sign up!", '/signup' %></p>
 

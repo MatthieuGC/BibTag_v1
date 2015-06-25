@@ -6,30 +6,39 @@
 <%= render 'layouts/default_navbar' %>
 <br />
 
+<!-- Ligne de boutons BACK - SHOW - EXPORT -->
+
 <div class="row">
-  <div class="col-sm-8"><%= link_to "Back", surrogates_path, class: "btn btn-primary", style: "color: #fff" %></div>
+  <div class="col-sm-9"><%= link_to "Back", surrogates_path, class: "btn btn-primary", style: "color: #fff" %></div>
   <div class="col-sm-1" align="right">
     <%= if @surrogate.url != nil
-          link_to "View Resource", @surrogate.url, class: "btn btn-success", style: "color: #fff"
+          link_to "Show Resource", @surrogate.url, class: "btn btn-success", style: "color: #fff"
 	end
     %>
   </div>
-  <!-- to fix (responsive) -->
-  <div class="col-sm-1"></div>
-  <!-- -->
-  <div class="col-sm-2" align="right"><%= link_to "Test Export", csv_url(format: "csv"), class: "btn btn-info", style: "color: #fff" %></div>
+  <div class="col-sm-2" align="right"><%= link_to "Test Export", csv_url(format: "xls"), class: "btn btn-info", style: "color: #fff" %></div>
 </div>
+
+<!-- Affichage du titre de la resource comme en-tête -->
 
 <h2 align="center" style="margin-top: 10px; margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px; border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc">
   <%= @surrogate.surrogate_elements.where(field_name: "title").first.se_values.first.value %>
 </h2>
 <br />
+
+<!-- Si la ressource possède un résumé, on divise la page en deux.
+La première partie pour les informations complémentaires, l'autre pour le résumé
+-->
+
 <% if !@surrogate.surrogate_elements.where(field_name: "abstract").first.nil? %>
 <div class="row">
 <div class="col-sm-6">
 <% end %>
 
+<!-- Appel à la vue contenant les différents champs à afficher -->
 <%= render 'content' %>
+
+<!-- Affichage du résumé s'il existe -->
 
 <% if !@surrogate.surrogate_elements.where(field_name: "abstract").first.nil? %>
 </div>
@@ -40,12 +49,18 @@
 </div>
 <% end %>
 <br />
+
+<!-- Affichage des tags -->
+
 <p>
   <b>tags : </b>
   <% @surrogate.tags.any? %>
   <% @surrogate.tags.each do |t| %>
- <kbd><%= link_to t.name, tagged_url(:tag => t.name), style: "color: #ccc" %><%=" (#{t.taggings_count})"%></kbd>
+ <kbd><%= link_to "#{t.name}"+" (#{t.taggings_count})", tagged_url(:tag => t.name), style: "color: #ccc" %></kbd>
   <% end %>
 </p>
 <br />
+
+<!-- Appel à la vue concernant le formulaire de classification par facette -->
+
 <%= render 'form' %>

@@ -10,13 +10,17 @@
       </ul>
     </div>
   <% end %>
-  
+
+<!-- Formulaire d'ajout de tags -->
+
   <h6>Add some tags (separated by commas) :</h6>
   <div class="actions">
     <%= f.text_field :tag_list, :value => " ", :size => 30 %>
     <%= f.submit "+", class: "btn btn-success btn-xs"%>
   </div>
   
+<!-- Affichage de la classification -->
+
 <% if !@surrogate.headings.blank? %>
 This ressource is classified in :
 <div class="row" style="margin-top: 10px; margin-left: 0px">
@@ -39,6 +43,9 @@ This ressource is classified in :
   </div>
   <% end %>
 </div>
+
+<!-- Formulaire de classification par facette -->
+
 <% else %>
   <h6>Add this article to some facets :</h6>
   <div class="actions row">

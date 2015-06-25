@@ -10,5 +10,6 @@
 #
 
 class Keyword < ActiveRecord::Base
+  # Appartient a 
   belongs_to :surrogates
 end

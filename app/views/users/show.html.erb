@@ -1,8 +1,22 @@
+<!-- Affichage de la barre de navigation -->
+
 <%= render 'layouts/user_navbar' %>
+
+<!-- Affichage du nom de l'utilisateur comme en-tête -->
+
 <h2 align="center"><%= @user.nom %><small> personal space</small></h2>
 <div style="margin-bottom: 15px">
+
+<!-- Choix entre la consultation de ses information
+ou de ses ressources (collections/classifications/ressources) -->
+
   <h5>My informations | My resources</h5>
 </div>
+
+<!-- Découpe la page en deux. 
+Panel 1 : Gestion des collections
+-->
+
 <div class="row">
   <div class="col-sm-6">
     <div class="panel panel-info">
@@ -14,6 +28,10 @@
       </div>
     </div>
   </div>
+
+<!-- Panel 2 : Gestion des classifications
+-->
+
   <div class="col-sm-6">
     <div class="panel panel-info">
       <div class="panel-heading">

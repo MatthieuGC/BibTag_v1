@@ -1,4 +1,7 @@
+<!-- Affichage de la barre de navigation -->
+
 <%= render 'layouts/default_navbar' %>
+
 <% if !@import.errors.empty? %>
   <div class="alert alert-error">
     <ul>
@@ -9,10 +12,17 @@
   </div>
 <% end %>
 
+<!-- Formulaire d'envoie de fichier au serveur -->
+
 <div class="well">
   <%= form_for @import, html: { multipart: true } do |f| %>
     <%= f.label "File to import" %>
     <%= f.file_field :attachment %>
+
+<!-- Si l'utilisateur est identifié, on lui propose
+d'ajouter ses ressources à une collection existante
+ou d'en créer une -->
+
     <% if signed_in? %>
     <%= f.label "Add to :", style: "margin-top: 10px" %>
     <br />

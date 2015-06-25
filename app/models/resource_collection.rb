@@ -10,6 +10,8 @@
 #
 
 class ResourceCollection < ActiveRecord::Base
+  # A plusieurs
   has_many :surrogates
+  # Appartient a
   belongs_to :users
 end

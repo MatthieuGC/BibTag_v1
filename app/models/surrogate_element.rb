@@ -10,9 +10,12 @@
 #
 
 class SurrogateElement < ActiveRecord::Base
+  # A plusieurs
   has_many :se_values
+  # Appartient a
   belongs_to :surrogates
-
+  
+  # Les champs suivants ne doivent pas être vides ou null
   validates :field_name, :presence => true
   validates :surrogate_id, :presence => true
 end

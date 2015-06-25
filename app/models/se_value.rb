@@ -11,7 +11,13 @@
 #
 
 class SeValue < ActiveRecord::Base
+  # Appartient a
+  belongs_to :surrogate_element
+  belongs_to :surrogates
+
+  # Fonction de recherche de terme pour le "searching"
   def self.search(query)
     where("value like ?", "%#{query}%")
   end
+
 end

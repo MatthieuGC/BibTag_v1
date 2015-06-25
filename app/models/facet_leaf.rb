@@ -9,7 +9,10 @@
 #
 
 class FacetLeaf < ActiveRecord::Base
+  # Appartient a 
   belongs_to :facets
+  # A plusieurs
   has_many :headings
+  # Doit être unique
   validates :facet_id, :uniqueness => true
 end

@@ -9,6 +9,8 @@
 #
 
 class Facet < ActiveRecord::Base
+  # A plusieurs
   has_many :facet_leafs, :dependent => :destroy
+  # Doit être unique
   validates :facet_name, :uniqueness => true
 end
