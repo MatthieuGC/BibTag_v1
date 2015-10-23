@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   match '/signin', :to => 'sessions#new', :via => [:get]
   match '/signout', :to => 'sessions#destroy', :via => [:get, :post, :delete]
   match '/csv', :to => 'surrogates#csv', :as => 'csv', :via => [:get]
+  match '/bib', :to => 'surrogates#bib', :as => 'bib', :via => [:get]
   
 #  get 'imports/new'
 

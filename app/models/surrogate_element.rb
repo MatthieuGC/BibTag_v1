@@ -11,7 +11,7 @@
 
 class SurrogateElement < ActiveRecord::Base
   # A plusieurs
-  has_many :se_values
+  has_many :se_values, :dependent => :destroy
   # Appartient a
   belongs_to :surrogates
   

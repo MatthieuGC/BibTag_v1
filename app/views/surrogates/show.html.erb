@@ -9,14 +9,15 @@
 <!-- Ligne de boutons BACK - SHOW - EXPORT -->
 
 <div class="row">
-  <div class="col-sm-9"><%= link_to "Back", surrogates_path, class: "btn btn-primary", style: "color: #fff" %></div>
-  <div class="col-sm-1" align="right">
-    <%= if @surrogate.url != nil
-          link_to "Show Resource", @surrogate.url, class: "btn btn-success", style: "color: #fff"
-	end
-    %>
+  <div class="col-sm-10"><%= link_to "Back", surrogates_path, class: "btn btn-primary", style: "color: #fff" %></div>
+  <div class="col-sm-2" align="right">
+    <div class="btn-group" role="group">
+      <% if @surrogate.url != nil %>
+        <%= link_to "Show", @surrogate.url, class: "btn btn-success", style: "color: #fff" %>
+      <% end %>
+      <%= link_to "Export", {:controller => "surrogates", :action => "bib", :surrogate => @surrogate }, :class => "btn btn-info", style: "color: #fff" %>
+    </div>
   </div>
-  <div class="col-sm-2" align="right"><%= link_to "Test Export", csv_url(format: "xls"), class: "btn btn-info", style: "color: #fff" %></div>
 </div>
 
 <!-- Affichage du titre de la resource comme en-tête -->

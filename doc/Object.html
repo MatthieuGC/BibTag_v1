@@ -148,7 +148,7 @@
 
           
           <div class="method-source-code" id="encrypt-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 66</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 68</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">string</span>)
   <span class="ruby-identifier">secure_hash</span>(<span class="ruby-node">&quot;#{salt}--#{string}&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -182,7 +182,7 @@
 
           
           <div class="method-source-code" id="make_salt-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 71</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 73</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">make_salt</span>
   <span class="ruby-identifier">secure_hash</span>(<span class="ruby-node">&quot;#{Time.new.utc}--#{password}&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -215,7 +215,7 @@
 
           
           <div class="method-source-code" id="secure_hash-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 76</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 78</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">secure_hash</span>(<span class="ruby-identifier">string</span>)
   <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA2</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-identifier">string</span>)
 <span class="ruby-keyword">end</span></pre>

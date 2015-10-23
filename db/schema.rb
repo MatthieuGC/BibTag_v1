@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616142020) do
+ActiveRecord::Schema.define(version: 20150702084227) do
+
+  create_table "abouts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "contact_forms", force: :cascade do |t|
     t.string   "name"
@@ -56,6 +61,7 @@ ActiveRecord::Schema.define(version: 20150616142020) do
     t.string   "facet_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
 
   create_table "headings", force: :cascade do |t|
@@ -97,6 +103,30 @@ ActiveRecord::Schema.define(version: 20150616142020) do
     t.datetime "updated_at",      null: false
     t.integer  "user_id"
   end
+
+  create_table "resource_collections_srg", id: false, force: :cascade do |t|
+    t.integer "resource_collection_id"
+    t.integer "surrogate_id"
+  end
+
+  add_index "resource_collections_srg", ["resource_collection_id"], name: "index_resource_collections_srg_on_resource_collection_id"
+  add_index "resource_collections_srg", ["surrogate_id"], name: "index_resource_collections_srg_on_surrogate_id"
+
+  create_table "resource_collections_surrogates", id: false, force: :cascade do |t|
+    t.integer "resource_collection_id"
+    t.integer "surrogate_id"
+  end
+
+  add_index "resource_collections_surrogates", ["resource_collection_id"], name: "res_col_srg_index"
+  add_index "resource_collections_surrogates", ["surrogate_id"], name: "index_resource_collections_surrogates_on_surrogate_id"
+
+  create_table "resource_collections_users", id: false, force: :cascade do |t|
+    t.integer "resource_collection_id"
+    t.integer "user_id"
+  end
+
+  add_index "resource_collections_users", ["resource_collection_id"], name: "index_resource_collections_users_on_resource_collection_id"
+  add_index "resource_collections_users", ["user_id"], name: "index_resource_collections_users_on_user_id"
 
   create_table "se_values", force: :cascade do |t|
     t.string   "value"

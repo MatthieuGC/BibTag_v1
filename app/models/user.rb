@@ -15,7 +15,9 @@ class User < ActiveRecord::Base
   # Défini un accesseur
   attr_accessor :password
   # A plusieurs
-  has_many :resource_collections
+  has_many :facets
+  # A plusieurs et appartient a
+  has_and_belongs_to_many :resource_collections
   # Expression régulière pour le contrôle des emails
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   # Conditions de validation de certains champs.

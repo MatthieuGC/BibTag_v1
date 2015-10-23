@@ -56,7 +56,7 @@ class ResourceCollectionsController < ApplicationController
   def destroy
     @resource_collection.destroy
     respond_to do |format|
-      format.html { redirect_to resource_collections_url, notice: 'Resource collection was successfully destroyed.' }
+      format.html { redirect_to user_path(current_user.id), notice: 'Resource collection was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

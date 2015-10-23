@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class AddUserIdToResourceCollection - RDoc Documentation</title>
+<title>class CreateResourceCollectionsUsers - RDoc Documentation</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
@@ -78,9 +78,9 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-AddUserIdToResourceCollection">
-  <h1 id="class-AddUserIdToResourceCollection" class="class">
-    class AddUserIdToResourceCollection
+<main role="main" aria-labelledby="class-CreateResourceCollectionsUsers">
+  <h1 id="class-CreateResourceCollectionsUsers" class="class">
+    class CreateResourceCollectionsUsers
   </h1>
 
   <section class="description">
@@ -125,9 +125,12 @@
 
           
           <div class="method-source-code" id="change-source">
-            <pre><span class="ruby-comment"># File db/migrate/20150626133703_add_user_id_to_resource_collection.rb, line 2</span>
+            <pre><span class="ruby-comment"># File db/migrate/20150626131642_create_resource_collections_users.rb, line 2</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">change</span>
-  <span class="ruby-identifier">add_column</span> <span class="ruby-value">:resource_collections</span>, <span class="ruby-value">:user_id</span>, <span class="ruby-value">:integer</span>
+  <span class="ruby-identifier">create_table</span> <span class="ruby-value">:resource_collections_users</span>, <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">t</span>.<span class="ruby-identifier">belongs_to</span> <span class="ruby-value">:resource_collection</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>
+    <span class="ruby-identifier">t</span>.<span class="ruby-identifier">belongs_to</span> <span class="ruby-value">:user</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

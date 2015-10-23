@@ -113,6 +113,64 @@ class SurrogatesController < ApplicationController
       format.xls # {send_data @export.to_csv(col_sep: "\t") }
     end
   end
+  
+  # Pour l'export en fichier BibTeX
+  def bib
+    @srg = Surrogate.find(params[:surrogate])
+    @bib = File.open("tmp/bibExport/test.bib", "w+")
+    @bib.write("%% This BibTeX file was created using BibTag.\n\n")
+    
+    if !current_user.nil?
+      @bib.write("%% Generate by #{User.where(:id => current_user.id).first.nom} at #{Time.now}\n\n")
+    else
+      @bib.write("%% Generate by Guest at #{Time.now}\n\n")
+    end
+
+    @bib.write("@#{@srg.entry_type}{#{@srg.entry_key}")
+    
+    @srg.surrogate_elements.each do |se|
+      @bib.write(",\n    #{se.field_name} = {")
+      
+      if se.field_name === "author"
+        @i = 0
+        se.se_values.each do |sev|
+	  if @i === 0
+            @bib.write("#{sev.value}")
+	    @i = 1
+	  else
+	    @bib.write(" and #{sev.value}")
+	  end
+        end
+
+      elsif se.field_name === "keywords"
+        @i = 0
+        se.se_values.each do |sev|
+	  if @i === 0
+            @bib.write("#{sev.value}")
+	    @i = 1
+	  else
+	    @bib.write(", #{sev.value}")
+	  end
+        end
+
+      else
+        @bib.write("#{se.se_values.first.value}")
+      end
+
+      @bib.write("}")
+    end
+    
+    @i = 0
+    while !@srg.headings[@i].nil?
+      @bib.write("\n    facet#{@i} = {#{Facet.where(:id => FacetLeaf.joins(:headings).where("headings.heading_name = '#{@srg.headings[@i].heading_name}'").first).first.facet_name}}")
+      @bib.write("\n    heading#{@i} = {#{@srg.headings[@i].heading_name}}")
+      @i = @i + 1
+    end # While End
+
+    @bib.write("\n}\n\n")
+    @bib.close
+    send_file 'tmp/bibExport/test.bib', :x_sendfile => true
+  end
 
   # Pour l'affichage des détails d'un surrogate
   def show

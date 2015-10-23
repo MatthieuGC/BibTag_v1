@@ -17,7 +17,7 @@ class ImportsController < ApplicationController
     if @import.new_collection != ""
       # Si l'utilisateur est enregistré, on créer cette collection
       if !current_user.nil?
-        ResourceCollection.create(:user_id => current_user.id, :collection_name => @import.new_collection)
+        User.where(:id => current_user.id).first.resource_collections << ResourceCollection.create(:user_id => current_user.id, :collection_name => @import.new_collection)
       end
     end
    
@@ -29,7 +29,7 @@ class ImportsController < ApplicationController
       # Si l'utilisateur n'est pas enregistré
       if current_user.nil? 
         # On enregistre les surrogates dans la collection par défaut
-        @srg = ResourceCollection.where(:collection_name => "Default").first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+        ResourceCollection.where(:collection_name => "Default").first.surrogates << Surrogate.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
       # Sinon, s'il est enregistré
       else
         # Si l'utilisateur sélectionne une collection 
@@ -38,31 +38,33 @@ class ImportsController < ApplicationController
           if @import.new_collection != ""
             # On enregistre ces surrogates dans la nouvelle collection
 	    # et non pas dans celle sélectionnée.
-            @srg = ResourceCollection.where(:user_id => current_user.id, :collection_name => @import.new_collection).first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+            ResourceCollection.where(:user_id => current_user.id, :collection_name => @import.new_collection).first.surrogates << Surrogate.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
           # S'il n'entre pas de nom de nouvelle collection
           else 
 	    # On enregistre ces surrogates dans la collection sélectionnée.
-	    @srg = ResourceCollection.where(:id => @import.collection_id).first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+	    ResourceCollection.where(:id => @import.collection_id).first.surrogates << Surrogate.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
           end
         # Si l'utilisateur ne sélectionne pas de collection
         # mais spécifie un nom de nouvelle collection
         elsif @import.new_collection != ""
           #On enregistre les surrogates dans la nouvelle collection.
-          @srg = ResourceCollection.where(:user_id => current_user.id, :collection_name => @import.new_collection).first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+          ResourceCollection.where(:user_id => current_user.id, :collection_name => @import.new_collection).first.surrogates << Surrogate.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
         # Sinon, si l'utilisateur n'a rien spécifié on enregistre
         # les surrogates dans la collection par défaut.
         else
-          @srg = ResourceCollection.where(:collection_name => "Default").first.surrogates.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
+          ResourceCollection.where(:collection_name => "Default").first.surrogates << Surrogate.create(:entry_type => @bib[i].type, :entry_key => @bib[i].key, :doi => @bib[i]['doi'], :url => @bib[i]['url'])
         end
       end
-     
       
+      @srg = Surrogate.last
       # ... Parcours chaque champs d'une entrée
       j = 0
       while @bib[i].entries[j] != nil do
+        @type = 0
         # Enregistre le nom du champ s'il existe
         if (@sField = @bib[i].entries[j].to_s.split('"')[0].split(/\W+/)[1]).nil?
-	  @sField = @bib[i].entries[j].to_s.split('"')[1].split(/\W+/)[1]
+	  @sField = @bib[i].entries[j].to_s.split('"')[1]
+          @type = 1
 	end
 	k = 0 
         # Si le champ parcouru est le champ keyword on récupère les
@@ -85,6 +87,8 @@ class ImportsController < ApplicationController
 	  k = 1 
 	# Par défaut on considère que les différentes valeurs sont 
 	# séparées pas des virgules.
+	elsif @type === 1 
+          @sValue = @bib[i].entries[j].to_s.split('"')[3].split(',')
 	else
           @sValue = @bib[i].entries[j].to_s.split('"')[1].split(',')
 	end
@@ -106,6 +110,7 @@ class ImportsController < ApplicationController
         @tag = @srg.tag_list.add(@sKeywords[k].strip)
         k = k+1
       end # While End
+      @srg.save
       i = i+1
     end # While end
 

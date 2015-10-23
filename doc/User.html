@@ -162,7 +162,7 @@ salt               :string</pre>
 
           
           <div class="method-source-code" id="authenticate-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 41</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 43</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">authenticate</span>(<span class="ruby-identifier">email</span>, <span class="ruby-identifier">submitted_password</span>)
   <span class="ruby-comment"># Cherche l&#39;utilisateur avec l&#39;email renseigné</span>
   <span class="ruby-identifier">user</span> = <span class="ruby-identifier">find_by_email</span>(<span class="ruby-identifier">email</span>)
@@ -200,7 +200,7 @@ salt               :string</pre>
 
           
           <div class="method-source-code" id="authenticate_with_salt-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 51</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">authenticate_with_salt</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">cookie_salt</span>)
   <span class="ruby-identifier">user</span> = <span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">id</span>)
   (<span class="ruby-identifier">user</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">salt</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">cookie_salt</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">user</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>
@@ -242,7 +242,7 @@ salt               :string</pre>
 
           
           <div class="method-source-code" id="has_password-3F-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 36</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">has_password?</span>(<span class="ruby-identifier">submitted_password</span>)
   <span class="ruby-identifier">encrypted_password</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">submitted_password</span>)
 <span class="ruby-keyword">end</span></pre>

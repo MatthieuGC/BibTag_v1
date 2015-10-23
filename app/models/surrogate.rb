@@ -15,9 +15,8 @@
 class Surrogate < ActiveRecord::Base
   # Peut être taggué
   acts_as_taggable_on :tags
-  # Appartient a
-  belongs_to :resource_collections
   # A plusieurs et appartient a
+  has_and_belongs_to_many :resource_collections
   has_and_belongs_to_many :headings
   # A plusieurs
   has_many :surrogate_elements, :dependent => :destroy

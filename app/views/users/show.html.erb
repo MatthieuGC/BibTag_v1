@@ -24,7 +24,20 @@ Panel 1 : Gestion des collections
         <b>MY COLLECTIONS</b>
       </div>
       <div class="panel-body">
-        ...
+        <% @user.resource_collections.order(:collection_name).each do |rc| %>
+	<div class="row">
+	  <div class="col-sm-3">
+	    <h4><%= rc.collection_name %></h4>
+	  </div>
+	  <div class="col-sm-9" align="right">
+	    <div class="btn-group" role="group">
+	      <%= link_to "Show", surrogates_path(:collection_id => rc.id), :class => "btn btn-success", style: "color: #fff" %>
+	      <%= link_to "Edit", "#", :class => "btn btn-info", style: "color: #fff" %>
+	      <%= link_to "Delete", resource_collection_path(rc), method: :delete, data: {confirm: "Are you sure?" }, :class => "btn btn-danger", style: "color: #fff" %>
+	    </div>
+	  </div>
+	</div>
+	<% end %>
       </div>
     </div>
   </div>
