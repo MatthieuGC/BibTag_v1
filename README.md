@@ -34,13 +34,13 @@ Gem used
 
 'webrat'
 
-Developers
+Leader
 ----------
 
 Ribaud Vincent
 
-Benabbou Amel
-
+Developer
+----------
 Gourvénec Matthieu
 
 
